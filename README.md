@@ -1,24 +1,15 @@
-# Redwood
+# SheetMenu 🥡
 
-> **WARNING:** RedwoodJS software has not reached a stable version 1.0 and should not be considered suitable for production use. In the "make it work; make it right; make it fast" paradigm, Redwood is in the later stages of the "make it work" phase.
+At SheetMenu, we help restaurants deploy professional websites in under fifteen minutes.
 
-## Getting Started
-- [Tutorial](https://redwoodjs.com/tutorial/welcome-to-redwood): getting started and complete overview guide.
-- [Docs](https://redwoodjs.com/docs/introduction): using the Redwood Router, handling assets and files, list of command-line tools, and more.
-- [Redwood Community](https://community.redwoodjs.com): get help, share tips and tricks, and collaborate on everything about RedwoodJS.
+- Maintain/update your website using Google Sheets
+- Choose from professional designs
+- Get analytics based on your visitors
+- Low monthly fee for hosting and support (less than the price of a dinner!)
+- DoorDash and Uber Eats integrations
 
-### Setup
+No more maintaining HTML, CSS, or dealing with expensive developers! We help restaurants maintain online presence with technology everyone already knows, spreadsheets!
 
-We use Yarn as our package manager. To get the dependencies installed, just do this in the root directory:
+Let's help our local restaurants create better websites together! 😋
 
-```terminal
-yarn install
-```
 
-### Fire it up
-
-```terminal
-yarn redwood dev
-```
-
-Your browser should open automatically to `http://localhost:8910` to see the web app. Lambda functions run on `http://localhost:8911` and are also proxied to `http://localhost:8910/.redwood/functions/*`. 
