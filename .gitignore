@@ -3,7 +3,9 @@
 .env
 .netlify
 .redwood
+.tmp
 dev.db
+dev.db-journal
 dist
 dist-babel
 node_modules

@@ -1,8 +1,10 @@
 import { useAuth } from '@redwoodjs/auth'
-import { navigate, NavLink, routes } from '@redwoodjs/router'
+import { navigate } from '@redwoodjs/router'
+
+import Logo from 'src/components/Logo'
 
 const AppLayout = ({ children }) => {
-  const { loading, isAuthenticated, logIn, logOut } = useAuth()
+  const { loading, isAuthenticated, logIn, logOut, currentUser } = useAuth()
 
   if (loading) {
     return null
@@ -19,20 +21,23 @@ const AppLayout = ({ children }) => {
 
   return (
     <>
-      <nav className="max-w-6xl mx-auto p-4 flex justify-between items-center">
-        <NavLink to={routes.home()} className="text-green-800 text-2xl">
-          <span>sheet</span>
-          <span className="font-extrabold">menu</span>
-        </NavLink>
+      {currentUser && !currentUser?.onboarded ? (
+        <div>Please finish onboarding</div>
+      ) : (
+        <>
+          <nav className="max-w-6xl mx-auto p-4 flex justify-between items-center">
+            <Logo />
 
-        <div>
-          <button onClick={handleAuth}>
-            {isAuthenticated ? 'Log out' : 'Log in'}
-          </button>
-        </div>
-      </nav>
+            <div>
+              <button onClick={handleAuth}>
+                {isAuthenticated ? 'Log out' : 'Log in'}
+              </button>
+            </div>
+          </nav>
 
-      {children}
+          {children}
+        </>
+      )}
     </>
   )
 }

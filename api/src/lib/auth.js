@@ -9,6 +9,7 @@ import { AuthenticationError } from '@redwoodjs/api'
 import admin from 'firebase-admin'
 
 import { db } from './db'
+import { user, createUser } from 'src/services/users/users'
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -24,7 +25,14 @@ const adminApp = admin.initializeApp(config)
 
 export const getCurrentUser = async (decoded, { token, type }) => {
   const { email, uid } = await adminApp.auth().verifyIdToken(token)
-  return { email, uid }
+
+  let existingUser = await user({ email })
+
+  if (!existingUser) {
+    existingUser = await createUser({ email, firebaseId: uid })
+  }
+
+  return existingUser
 }
 
 // Use this function in your services to check that a user is logged in, and
