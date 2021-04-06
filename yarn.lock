@@ -2133,10 +2133,10 @@
     tslib "^2.1.0"
     warning "^4.0.3"
 
-"@redwoodjs/api-server@^0.28.3":
-  version "0.28.3"
-  resolved "https://registry.yarnpkg.com/@redwoodjs/api-server/-/api-server-0.28.3.tgz#893988d0e18bbea6a5610c37d5c79cfa003c43c1"
-  integrity sha512-t9u5XqoM7r7BRVI7xTOn+TdQTY4fAGeu9wN/0zVqMbuYUiycz5z8GBk1zZD7/j1WjvzIH/XcWFMx/m2eQWz1pQ==
+"@redwoodjs/api-server@^0.28.4":
+  version "0.28.4"
+  resolved "https://registry.yarnpkg.com/@redwoodjs/api-server/-/api-server-0.28.4.tgz#6f7009eb0918d13fc3b4fc30dab28483717fb386"
+  integrity sha512-z2x42hW7T5NiNccwCN74kM5o7qVL/KIIVZimQFmfWWIOHGD0CxV85Hob1/cYFsgMUEdfVdX81r1/+F/v9g4E8g==
   dependencies:
     body-parser "^1.19.0"
     chokidar "3.5.1"
@@ -2150,14 +2150,14 @@
     youch "^2.1.1"
     youch-terminal "^1.0.1"
 
-"@redwoodjs/api@^0.28.3":
-  version "0.28.3"
-  resolved "https://registry.yarnpkg.com/@redwoodjs/api/-/api-0.28.3.tgz#0c9e3d8d970ecdebaa4860f29ac4a256d9aa00db"
-  integrity sha512-czNfX68T6++DNdO1ISV+dRPX7KGI2CuN4zpEZGDI4ug3IDzwt9kw5pcvp201l4lMhS/IINlYIAaqXyyB3Iywlw==
+"@redwoodjs/api@^0.28.4":
+  version "0.28.4"
+  resolved "https://registry.yarnpkg.com/@redwoodjs/api/-/api-0.28.4.tgz#224d7e8b4277d2a43d9a2e1ee2f4dcb07aa68bbf"
+  integrity sha512-fwX6fwd2huCk3S7DH5b9qHkVyyYkruMrYWDDBxCX642I8Q1oLNeoYn6YZo+SMKA9XbvSD9e77rxMGRqL9kliJw==
   dependencies:
     "@graphql-tools/merge" "6.2.10"
     "@prisma/client" "2.19.0"
-    "@redwoodjs/internal" "^0.28.3"
+    "@redwoodjs/internal" "^0.28.4"
     "@types/pino" "^6.3.6"
     apollo-server-lambda "2.22.2"
     core-js "3.6.5"
@@ -2324,10 +2324,10 @@
   resolved "https://registry.yarnpkg.com/@redwoodjs/eslint-plugin-redwood/-/eslint-plugin-redwood-0.28.3.tgz#5bf62c7b5c1d1d6b47f8f3a70d70dad2870f49f2"
   integrity sha512-yORDCZ8qz5i0LpiRdUtmZ0JrqWYmdz3igEg0YnVIn3fgnQZgm6idilJqfPVB1TyJZ9FTwDzcGOMqWyfyfhtXEQ==
 
-"@redwoodjs/forms@^0.28.3":
-  version "0.28.3"
-  resolved "https://registry.yarnpkg.com/@redwoodjs/forms/-/forms-0.28.3.tgz#356ba7aa661d2101c14ea8897a07e96dc052b0f2"
-  integrity sha512-FxJEI8CAArcUK531FPqFEFPH3BvI+mLLKjU6jJTlg4w8c2IimSpptO3BQL4FginaWEXJy/c7OW/NAURoTZBjIg==
+"@redwoodjs/forms@^0.28.4":
+  version "0.28.4"
+  resolved "https://registry.yarnpkg.com/@redwoodjs/forms/-/forms-0.28.4.tgz#6f1893c72b911b4622ef2938b5b30fc7d095ccf3"
+  integrity sha512-/FYuXf5T1QZxmM6RmRe8evP7p4CPwYo8guLN+yrGA0TOvsGt8Mu/JHMRgFyDyw7WU6VX9+fTNtk5kBWqeYi/rg==
   dependencies:
     "@types/pascalcase" "^1.0.0"
     core-js "3.6.5"
@@ -2338,6 +2338,18 @@
   version "0.28.3"
   resolved "https://registry.yarnpkg.com/@redwoodjs/internal/-/internal-0.28.3.tgz#a08887663ddfb588f6b89a98af9df907c8ab8b8f"
   integrity sha512-M57+uSQZoOAZDunUFYxXX11jXh3F9v7UCZ2SZjDUkrG9hZBnPOHLQqzKcZTSvjTA3edKlgc8CmuqryhKLUQWFg==
+  dependencies:
+    "@babel/plugin-transform-typescript" "^7.11.6"
+    deepmerge "^4.2.2"
+    findup-sync "^4.0.0"
+    glob "7.1.6"
+    kill-port "^1.6.1"
+    toml "^3.0.0"
+
+"@redwoodjs/internal@^0.28.4":
+  version "0.28.4"
+  resolved "https://registry.yarnpkg.com/@redwoodjs/internal/-/internal-0.28.4.tgz#bdb8c285577a7986742172af109687b273210690"
+  integrity sha512-j4eGg1C1v7T7NhqRdOF9v1SUSY9STBKsVFrSxAAG57y4A3w43Vf1XOycqS/pLOA3TNkiqGTUAjJaRpEbbwfAGA==
   dependencies:
     "@babel/plugin-transform-typescript" "^7.11.6"
     deepmerge "^4.2.2"
@@ -2367,6 +2379,16 @@
   dependencies:
     "@reach/skip-nav" "^0.13.2"
     "@redwoodjs/auth" "^0.28.3"
+    core-js "3.6.5"
+    lodash.isequal "^4.5.0"
+
+"@redwoodjs/router@^0.28.4":
+  version "0.28.4"
+  resolved "https://registry.yarnpkg.com/@redwoodjs/router/-/router-0.28.4.tgz#fd0d9ce7bdbf2af512718b8e6c9955ca1642815b"
+  integrity sha512-skMbYSlD8Opdr/YrAt9C4WDuuhbezq06N8HL3Bm7Uh7fIsLqC7NrA8xwhhkfn9fU6Uhy66Jimx/YslCGikHlvw==
+  dependencies:
+    "@reach/skip-nav" "^0.13.2"
+    "@redwoodjs/auth" "^0.28.4"
     core-js "3.6.5"
     lodash.isequal "^4.5.0"
 
@@ -2417,6 +2439,18 @@
   dependencies:
     "@apollo/client" "^3.3.11"
     "@redwoodjs/auth" "^0.28.3"
+    core-js "3.6.5"
+    graphql "^15.3.0"
+    proptypes "^1.1.0"
+    react-hot-toast "^1.0.2"
+
+"@redwoodjs/web@^0.28.4":
+  version "0.28.4"
+  resolved "https://registry.yarnpkg.com/@redwoodjs/web/-/web-0.28.4.tgz#201486ad93d2eaa3bea31f5f24e2549743495bf8"
+  integrity sha512-pTI3bpvDfJGn8GO1xoNUxAax/V7Zzd5JM8M9CCGQhvYxqxdPds5pLZbNRfI75uVQkn9t8Rufs1kcMPi7pfbleQ==
+  dependencies:
+    "@apollo/client" "^3.3.11"
+    "@redwoodjs/auth" "^0.28.4"
     core-js "3.6.5"
     graphql "^15.3.0"
     proptypes "^1.1.0"

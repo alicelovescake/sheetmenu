@@ -6,6 +6,7 @@ export const schema = gql`
     stripeId: String
     stripeSubscriptionid: String
     restaurant: [Restaurant]!
+    firebaseId: String!
     onboarded: Boolean!
     createdAt: DateTime!
     updatedAt: DateTime!
@@ -21,6 +22,7 @@ export const schema = gql`
     stripeId: String
     stripeSubscriptionid: String
     onboarded: Boolean!
+    firebaseId: String!
   }
 
   input UpdateUserInput {

@@ -1,10 +1,14 @@
 import { useAuth } from '@redwoodjs/auth'
-import { navigate } from '@redwoodjs/router'
+import { navigate, Redirect, routes, useLocation } from '@redwoodjs/router'
 
 import Logo from 'src/components/Logo'
 
 const AppLayout = ({ children }) => {
   const { loading, isAuthenticated, logIn, logOut, currentUser } = useAuth()
+  const { pathname } = useLocation()
+
+  const requiresOnboarding =
+    currentUser && !currentUser?.onboarded && pathname !== routes.onboard()
 
   if (loading) {
     return null
@@ -21,8 +25,8 @@ const AppLayout = ({ children }) => {
 
   return (
     <>
-      {currentUser && !currentUser?.onboarded ? (
-        <div>Please finish onboarding</div>
+      {requiresOnboarding ? (
+        <Redirect to={routes.onboard()} />
       ) : (
         <>
           <nav className="max-w-6xl mx-auto p-4 flex justify-between items-center">
