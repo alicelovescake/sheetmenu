@@ -11,3 +11,7 @@
 /**
  * END --- TAILWIND GENERATOR EDIT
  */
+
+body {
+  @apply bg-gray-100;
+}
