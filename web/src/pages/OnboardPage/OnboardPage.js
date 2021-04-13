@@ -1,16 +1,32 @@
 import { Link, routes } from '@redwoodjs/router'
+import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
 
 const OnboardPage = () => {
+  const onSubmit = (data) => {
+    console.log(data)
+  }
+
   return (
     <>
-      <h1>OnboardPage</h1>
-      <p>
-        Find me in <code>./web/src/pages/OnboardPage/OnboardPage.js</code>
-      </p>
-      <p>
-        My default route is named <code>onboard</code>, link to me with `
-        <Link to={routes.onboard()}>Onboard</Link>`
-      </p>
+      <Form onSubmit={onSubmit}>
+        <Label name="name" className="label" />
+        <TextField
+          name="name"
+          className="input"
+          validation={{ required: true }}
+        />
+        <FieldError name="name" className="error-message" />
+
+        <Label name="restaurant name" className="label" />
+        <TextField
+          name="restaurant name"
+          className="input"
+          validation={{ required: true }}
+        />
+        <FieldError name="restaurant name" className="error-message" />
+
+        <Submit className="button">Save</Submit>
+      </Form>
     </>
   )
 }
