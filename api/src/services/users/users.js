@@ -12,8 +12,16 @@ export const createUser = ({ email, firebaseId }) => {
   return db.user.create({ data: { email, firebaseId } })
 }
 
-export const updateUser = (data) => {
-  return db.user.update({ data })
+export const updateUser = (id, data) => {
+  return db.user.update({
+    data: {
+      ...data,
+      updatedAt: new Date(),
+    },
+    where: {
+      id,
+    },
+  })
 }
 
 export const User = {

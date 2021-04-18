@@ -1,9 +1,18 @@
 import { navigate, routes } from '@redwoodjs/router'
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
+import { useMutation } from '@redwoodjs/web'
+
+const ONBOARD_USER = gql`
+  mutation OnboardMutation($input: OnboardInput!) {
+    onboard(input: $input)
+  }
+`
 
 const OnboardPage = () => {
+  const [create] = useMutation(ONBOARD_USER)
+
   const onSubmit = (data) => {
-    console.log(data)
+    create({ variables: { input: data } })
   }
 
   return (
@@ -24,15 +33,15 @@ const OnboardPage = () => {
 
       <Form onSubmit={onSubmit} className="bg-white p-6 rounded-lg space-y-4">
         <div>
-          <Label name="name" className="font-bold pr-2 text-sm">
+          <Label name="userName" className="font-bold pr-2 text-sm">
             Name
           </Label>
           <TextField
-            name="name"
+            name="userName"
             className="bg-gray-100 p-2 rounded-lg block w-full"
             validation={{ required: true }}
           />
-          <FieldError name="name" className="error-message" />
+          <FieldError name="userName" className="error-message" />
         </div>
 
         <div>
