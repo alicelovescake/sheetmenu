@@ -12,6 +12,10 @@ export const createUser = ({ email, firebaseId }) => {
   return db.user.create({ data: { email, firebaseId } })
 }
 
+export const updateUser = (data) => {
+  return db.user.update({ data })
+}
+
 export const User = {
   restaurant: (_obj, { root }) =>
     db.user.findUnique({ where: { id: root.id } }).restaurant(),
