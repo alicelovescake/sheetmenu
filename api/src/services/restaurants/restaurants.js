@@ -22,6 +22,24 @@ export const createRestaurant = ({ name }) => {
   })
 }
 
+export const updateRestaurant = (id, data) => {
+  requireAuth()
+
+  return db.restaurant.update({
+    data: {
+      ...data,
+      updatedAt: new Date(),
+    },
+    where: {
+      id: id,
+    },
+  })
+}
+
+export const restaurantByUserId = ({ userId }) => {
+  return db.restaurant.findMany({ where: { ownerId: userId } })
+}
+
 export const Restaurant = {
   owner: (_obj, { root }) =>
     db.restaurant.findUnique({ where: { id: root.id } }).owner(),

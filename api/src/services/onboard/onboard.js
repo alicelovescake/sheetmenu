@@ -1,11 +1,26 @@
 import { requireAuth } from 'src/lib/auth'
-import { createRestaurant } from '../restaurants/restaurants'
+import {
+  createRestaurant,
+  restaurantByUserId,
+  updateRestaurant,
+} from '../restaurants/restaurants'
 import { updateUser } from '../users/users'
 
 export const onboard = async ({ input }) => {
   requireAuth()
 
-  await createRestaurant({ name: input.restaurantName })
+  const currentRestaurant = await restaurantByUserId({
+    userId: context.currentUser.id,
+  })
+
+  if (currentRestaurant.length == 0) {
+    await createRestaurant({ name: input.restaurantName })
+  } else {
+    await updateRestaurant(currentRestaurant[0].id, {
+      name: input.restaurantName,
+    })
+  }
+
   await updateUser(context.currentUser.id, {
     name: input.userName,
     onboarded: true,

@@ -1,6 +1,8 @@
 import { navigate, routes } from '@redwoodjs/router'
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
+import { toast, Toaster } from '@redwoodjs/web/toast'
+import { useForm } from 'react-hook-form'
 
 const ONBOARD_USER = gql`
   mutation OnboardMutation($input: OnboardInput!) {
@@ -9,7 +11,15 @@ const ONBOARD_USER = gql`
 `
 
 const OnboardPage = () => {
-  const [create] = useMutation(ONBOARD_USER)
+  const [create, { loading }] = useMutation(ONBOARD_USER, {
+    onCompleted: () => {
+      toast.success('Thank you for registering!')
+      formMethods.reset()
+      navigate(routes.dashboard())
+    },
+  })
+
+  const formMethods = useForm()
 
   const onSubmit = (data) => {
     create({ variables: { input: data } })
@@ -31,7 +41,12 @@ const OnboardPage = () => {
         </p>
       </div>
 
-      <Form onSubmit={onSubmit} className="bg-white p-6 rounded-lg space-y-4">
+      <Toaster />
+      <Form
+        onSubmit={onSubmit}
+        className="bg-white p-6 rounded-lg space-y-4"
+        formMethods={formMethods}
+      >
         <div>
           <Label name="userName" className="font-bold pr-2 text-sm">
             Name
@@ -56,7 +71,10 @@ const OnboardPage = () => {
           <FieldError name="restaurantName" className="error-message" />
         </div>
 
-        <Submit className="bg-green-800 py-2 px-6 text-white rounded-lg hover:opacity-75">
+        <Submit
+          className="bg-green-800 py-2 px-6 text-white rounded-lg hover:opacity-75"
+          disabled={loading}
+        >
           Save
         </Submit>
       </Form>
