@@ -11,10 +11,12 @@ generator client {
 model User {
   id                   String       @id @default(cuid())
   email                String       @unique
+  firebaseId           String
   name                 String?
   stripeId             String?
   stripeSubscriptionid String?
   restaurant           Restaurant[]
+  onboarded            Boolean      @default(false)
   createdAt            DateTime     @default(now())
   updatedAt            DateTime     @default(now())
 }
