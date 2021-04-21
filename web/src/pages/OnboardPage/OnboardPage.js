@@ -1,8 +1,8 @@
 import { navigate, routes } from '@redwoodjs/router'
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
-import { toast, Toaster } from '@redwoodjs/web/toast'
 import { useForm } from 'react-hook-form'
+import { useAuth } from '@redwoodjs/auth'
 
 const ONBOARD_USER = gql`
   mutation OnboardMutation($input: OnboardInput!) {
@@ -11,10 +11,11 @@ const ONBOARD_USER = gql`
 `
 
 const OnboardPage = () => {
+  const { reauthenticate } = useAuth()
+
   const [create, { loading }] = useMutation(ONBOARD_USER, {
-    onCompleted: () => {
-      toast.success('Thank you for registering!')
-      formMethods.reset()
+    onCompleted: async () => {
+      await reauthenticate()
       navigate(routes.dashboard())
     },
   })
@@ -41,7 +42,6 @@ const OnboardPage = () => {
         </p>
       </div>
 
-      <Toaster />
       <Form
         onSubmit={onSubmit}
         className="bg-white p-6 rounded-lg space-y-4"

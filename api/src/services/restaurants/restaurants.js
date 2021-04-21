@@ -36,8 +36,8 @@ export const updateRestaurant = (id, data) => {
   })
 }
 
-export const restaurantByUserId = ({ userId }) => {
-  return db.restaurant.findMany({ where: { ownerId: userId } })
+export const restaurantByOwnerId = ({ ownerId }) => {
+  return db.restaurant.findMany({ where: { ownerId } })
 }
 
 export const Restaurant = {
