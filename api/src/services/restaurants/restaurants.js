@@ -5,14 +5,14 @@ export const restaurants = () => {
   return db.restaurant.findMany()
 }
 
-export const createRestaurant = ({ name }) => {
+export const createRestaurant = ({ name, brandColor }) => {
   requireAuth()
 
   return db.restaurant.create({
     data: {
       name,
       sheetId: '',
-      brandColor: '#C81D25',
+      brandColor,
       owner: {
         connect: {
           id: context.currentUser.id,

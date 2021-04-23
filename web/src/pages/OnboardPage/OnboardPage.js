@@ -28,16 +28,12 @@ const OnboardPage = () => {
   const formMethods = useForm()
 
   const onSubmit = (data) => {
-    create({ variables: { input: data } })
+    create({ variables: { input: { ...data, brandColor: colorHex } } })
   }
 
   const [diplayColorPicker, setDisplayColorPicker] = useState(false)
-  const [color, setColor] = useState({
-    r: '241',
-    g: '112',
-    b: '19',
-    a: '1',
-  })
+
+  const [colorHex, setColorHex] = useState('#C81D25')
 
   const handleColorClick = () => {
     setDisplayColorPicker(!diplayColorPicker)
@@ -48,7 +44,7 @@ const OnboardPage = () => {
   }
 
   const handleColorChange = (color) => {
-    setColor(color.rgb)
+    setColorHex(color.hex)
   }
 
   const colorPickerRef = useRef()
@@ -114,7 +110,7 @@ const OnboardPage = () => {
               <div
                 className="w-12 h-8 border-r-1 rounded-md"
                 style={{
-                  backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a} )`,
+                  backgroundColor: colorHex,
                 }}
               />
             </div>
@@ -127,7 +123,7 @@ const OnboardPage = () => {
                   role="button"
                   tabIndex={0}
                 />{' '}
-                <SketchPicker color={color} onChange={handleColorChange} />{' '}
+                <SketchPicker color={colorHex} onChange={handleColorChange} />{' '}
               </div>
             ) : null}
           </div>
