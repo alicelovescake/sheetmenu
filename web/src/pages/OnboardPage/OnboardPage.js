@@ -3,6 +3,9 @@ import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '@redwoodjs/auth'
+import { useState, createRef, useRef } from 'react'
+
+import { SketchPicker } from 'react-color'
 
 const ONBOARD_USER = gql`
   mutation OnboardMutation($input: OnboardInput!) {
@@ -24,6 +27,26 @@ const OnboardPage = () => {
 
   const onSubmit = (data) => {
     create({ variables: { input: data } })
+  }
+
+  const [diplayColorPicker, setDisplayColorPicker] = useState(false)
+  const [color, setColor] = useState({
+    r: '241',
+    g: '112',
+    b: '19',
+    a: '1',
+  })
+
+  const handleColorClick = () => {
+    setDisplayColorPicker(!diplayColorPicker)
+  }
+
+  const handleColorClose = () => {
+    setDisplayColorPicker(false)
+  }
+
+  const handleColorChange = (color) => {
+    setColor(color.rgb)
   }
 
   return (
@@ -69,6 +92,41 @@ const OnboardPage = () => {
             validation={{ required: true }}
           />
           <FieldError name="restaurantName" className="error-message" />
+        </div>
+
+        <div>
+          <Label name="colorPicker" className="font-bold pr-2 text-sm">
+            Your Brand Color:
+          </Label>
+          <div>
+            <div
+              className="border-8 bg-gray-100 inline-block cursor-pointer rounded-lg"
+              role="button"
+              tabIndex={0}
+              onClick={handleColorClick}
+              onKeyDown={handleColorClick}
+            >
+              <div
+                className="w-12 h-8 border-r-1 rounded-md"
+                style={{
+                  backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a} )`,
+                }}
+              />
+            </div>
+            {diplayColorPicker ? (
+              <div className="absolute z-10">
+                {' '}
+                <div
+                  onClick={handleColorClose}
+                  onKeyDown={handleColorClose}
+                  role="button"
+                  tabIndex={0}
+                />{' '}
+                <SketchPicker color={color} onChange={handleColorChange} />{' '}
+              </div>
+            ) : null}
+          </div>
+          <FieldError name="colorPicker" className="error-message" />
         </div>
 
         <Submit
