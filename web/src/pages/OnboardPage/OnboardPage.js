@@ -1,9 +1,11 @@
 import { navigate, routes } from '@redwoodjs/router'
+import UseOnClickOutside from '../../hooks/UseOnClickOutside'
+
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '@redwoodjs/auth'
-import { useState, createRef, useRef } from 'react'
+import { useState, useRef } from 'react'
 
 import { SketchPicker } from 'react-color'
 
@@ -48,6 +50,9 @@ const OnboardPage = () => {
   const handleColorChange = (color) => {
     setColor(color.rgb)
   }
+
+  const colorPickerRef = useRef()
+  UseOnClickOutside(colorPickerRef, () => setDisplayColorPicker(false))
 
   return (
     <main className="max-w-2xl mx-auto p-6">
@@ -100,7 +105,7 @@ const OnboardPage = () => {
           </Label>
           <div>
             <div
-              className="border-8 bg-gray-100 inline-block cursor-pointer rounded-lg"
+              className=" bg-gray-100 inline-block cursor-pointer rounded-lg"
               role="button"
               tabIndex={0}
               onClick={handleColorClick}
@@ -114,7 +119,7 @@ const OnboardPage = () => {
               />
             </div>
             {diplayColorPicker ? (
-              <div className="absolute z-10">
+              <div className="absolute z-10" ref={colorPickerRef}>
                 {' '}
                 <div
                   onClick={handleColorClose}
