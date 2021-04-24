@@ -1,5 +1,5 @@
 import { navigate, routes } from '@redwoodjs/router'
-import UseOnClickOutside from '../../hooks/UseOnClickOutside'
+import useOnClickOutside from '../../hooks/useOnClickOutside'
 
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
@@ -48,7 +48,7 @@ const OnboardPage = () => {
   }
 
   const colorPickerRef = useRef()
-  UseOnClickOutside(colorPickerRef, () => setDisplayColorPicker(false))
+  useOnClickOutside(colorPickerRef, () => setDisplayColorPicker(false))
 
   return (
     <main className="max-w-2xl mx-auto p-6">
