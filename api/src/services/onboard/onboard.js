@@ -16,7 +16,10 @@ export const onboard = async ({ input }) => {
     return
   }
 
-  await createRestaurant({ name: input.restaurantName })
+  await createRestaurant({
+    name: input.restaurantName,
+    brandColor: input.brandColor,
+  })
   await updateUser(context.currentUser.id, {
     name: input.userName,
     onboarded: true,

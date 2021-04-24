@@ -18,6 +18,7 @@ export const schema = gql`
   input CreateRestaurantInput {
     name: String!
     ownerId: String!
+    brandColor: String!
   }
 
   input UpdateRestaurantInput {
