@@ -81,7 +81,7 @@ const RestaurantSetting = () => {
 
   return (
     <div>
-      <h2 className="font-bold pb-10">Update Restaurant</h2>
+      <h2 className="font-bold pb-10 pl-6">Restaurant Settings</h2>
       <Toaster />
       <Form
         onSubmit={onSubmit}

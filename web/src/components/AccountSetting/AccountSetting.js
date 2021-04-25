@@ -26,7 +26,7 @@ const AccountSetting = () => {
   }
   return (
     <div>
-      <h2 className="font-bold pb-10">Update Account</h2>
+      <h2 className="font-bold pb-10 pl-6">Account Settings</h2>
       <Toaster />
       <Form
         onSubmit={onSubmit}
