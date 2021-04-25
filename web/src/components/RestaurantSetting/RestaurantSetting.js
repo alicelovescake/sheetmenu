@@ -5,6 +5,7 @@ import { useMutation, useQuery } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
 import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '@redwoodjs/auth'
+import { toast, Toaster } from '@redwoodjs/web/toast'
 
 import { SketchPicker } from 'react-color'
 
@@ -43,7 +44,11 @@ const RestaurantSetting = () => {
 
   const formMethods = useForm()
 
-  const [update, { loading }] = useMutation(UPDATE_RESTAURANT)
+  const [update, { loading }] = useMutation(UPDATE_RESTAURANT, {
+    onCompleted: () => {
+      toast.success('Your restaurant info is updated!')
+    },
+  })
 
   useEffect(() => {
     setRestaurant(data?.restaurantByOwnerId)
@@ -77,6 +82,7 @@ const RestaurantSetting = () => {
   return (
     <div>
       <h2 className="font-bold pb-10">Update Restaurant</h2>
+      <Toaster />
       <Form
         onSubmit={onSubmit}
         className="bg-white p-6 rounded-lg space-y-4"

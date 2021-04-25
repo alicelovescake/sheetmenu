@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form'
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
+import { useAuth } from '@redwoodjs/auth'
+import { toast, Toaster } from '@redwoodjs/web/toast'
 
 const UPDATE_ACCOUNT = gql`
   mutation UpdateAccountMutation($input: UpdateUserInput!) {
@@ -10,7 +12,12 @@ const UPDATE_ACCOUNT = gql`
   }
 `
 const AccountSetting = () => {
-  const [create, { loading }] = useMutation(UPDATE_ACCOUNT)
+  const [create, { loading }] = useMutation(UPDATE_ACCOUNT, {
+    onCompleted: () => {
+      toast.success('Your account info is updated!')
+    },
+  })
+  const { currentUser } = useAuth()
 
   const formMethods = useForm()
 
@@ -20,7 +27,7 @@ const AccountSetting = () => {
   return (
     <div>
       <h2 className="font-bold pb-10">Update Account</h2>
-
+      <Toaster />
       <Form
         onSubmit={onSubmit}
         className="bg-white p-6 rounded-lg space-y-4"
@@ -32,6 +39,7 @@ const AccountSetting = () => {
           </Label>
           <TextField
             name="userName"
+            defaultValue={currentUser.name}
             className="bg-gray-100 p-2 rounded-lg block w-full"
             validation={{ required: true }}
           />
