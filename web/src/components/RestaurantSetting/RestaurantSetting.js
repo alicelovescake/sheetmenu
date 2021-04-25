@@ -1,39 +1,63 @@
-import { navigate, routes } from '@redwoodjs/router'
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
-import { useMutation } from '@redwoodjs/web'
+import { useMutation, useQuery } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
+import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '@redwoodjs/auth'
-import { useState, useRef } from 'react'
 
 import { SketchPicker } from 'react-color'
 
-const ONBOARD_USER = gql`
-  mutation OnboardMutation($input: OnboardInput!) {
-    onboard(input: $input)
+const UPDATE_RESTAURANT = gql`
+  mutation UpdateRestaurantMutation(
+    $id: String!
+    $input: UpdateRestaurantInput!
+  ) {
+    updateRestaurant(id: $id, input: $input) {
+      id
+    }
   }
 `
 
-const OnboardPage = () => {
-  const { reauthenticate } = useAuth()
-
-  const [create, { loading }] = useMutation(ONBOARD_USER, {
-    onCompleted: async () => {
-      await reauthenticate()
-      navigate(routes.setting())
-    },
-  })
-
-  const formMethods = useForm()
-
-  const onSubmit = (data) => {
-    create({ variables: { input: { ...data, brandColor: colorHex } } })
+const GET_RESTAURANT = gql`
+  query GetRestaurant($ownerId: String!) {
+    restaurantByOwnerId(ownerId: $ownerId) {
+      id
+      name
+      brandColor
+    }
   }
+`
+
+const RestaurantSetting = () => {
+  const { currentUser } = useAuth()
+  const { data } = useQuery(GET_RESTAURANT, {
+    variables: { ownerId: currentUser.id },
+  })
 
   const [diplayColorPicker, setDisplayColorPicker] = useState(false)
 
-  const [colorHex, setColorHex] = useState('#C81D25')
+  const [colorHex, setColorHex] = useState('#FFFFFF')
+
+  const [restaurant, setRestaurant] = useState(null)
+
+  const formMethods = useForm()
+
+  const [update, { loading }] = useMutation(UPDATE_RESTAURANT)
+
+  useEffect(() => {
+    setRestaurant(data?.restaurantByOwnerId)
+    setColorHex(data?.restaurantByOwnerId.brandColor)
+  }, [data])
+
+  const onSubmit = (data) => {
+    update({
+      variables: {
+        id: restaurant.id,
+        input: { name: data.restaurantName, brandColor: colorHex },
+      },
+    })
+  }
 
   const handleColorClick = () => {
     setDisplayColorPicker(!diplayColorPicker)
@@ -51,44 +75,20 @@ const OnboardPage = () => {
   useOnClickOutside(colorPickerRef, () => setDisplayColorPicker(false))
 
   return (
-    <main className="max-w-2xl mx-auto p-6">
-      <div className="mb-4 space-y-4 p-6">
-        <h1 className="font-bold text-2xl">Welcome!</h1>
-
-        <p>
-          Thanks for joining sheetmenu! We&apos;ll help you get a website up and
-          running in under five minutes.
-        </p>
-
-        <p>
-          First, we just need a little bit of info about you and your
-          restaurant.
-        </p>
-      </div>
-
+    <div>
+      <h2 className="font-bold pb-10">Update Restaurant</h2>
       <Form
         onSubmit={onSubmit}
         className="bg-white p-6 rounded-lg space-y-4"
         formMethods={formMethods}
       >
         <div>
-          <Label name="userName" className="font-bold pr-2 text-sm">
-            Name
-          </Label>
-          <TextField
-            name="userName"
-            className="bg-gray-100 p-2 rounded-lg block w-full"
-            validation={{ required: true }}
-          />
-          <FieldError name="userName" className="error-message" />
-        </div>
-
-        <div>
           <Label name="restaurantName" className="font-bold pr-2 text-sm">
             Restaurant Name
           </Label>
           <TextField
             name="restaurantName"
+            defaultValue={restaurant?.name}
             className="bg-gray-100 p-2 rounded-lg block w-full"
             validation={{ required: true }}
           />
@@ -137,8 +137,8 @@ const OnboardPage = () => {
           Save
         </Submit>
       </Form>
-    </main>
+    </div>
   )
 }
 
-export default OnboardPage
+export default RestaurantSetting

@@ -1,4 +1,4 @@
-import DashboardPage from './DashboardPage'
+import DashboardPage from './SettingPage'
 
 export const generated = () => {
   return <DashboardPage />

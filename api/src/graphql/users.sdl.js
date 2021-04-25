@@ -32,4 +32,8 @@ export const schema = gql`
     stripeSubscriptionid: String
     onboarded: Boolean
   }
+
+  type Mutation {
+    updateUser(input: UpdateUserInput!): User
+  }
 `

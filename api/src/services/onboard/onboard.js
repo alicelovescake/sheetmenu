@@ -20,9 +20,11 @@ export const onboard = async ({ input }) => {
     name: input.restaurantName,
     brandColor: input.brandColor,
   })
-  await updateUser(context.currentUser.id, {
-    name: input.userName,
-    onboarded: true,
+  await updateUser({
+    input: {
+      name: input.userName,
+      onboarded: true,
+    },
   })
 
   return context.currentUser.id
