@@ -1,11 +1,10 @@
-import { Link, routes } from '@redwoodjs/router'
-import AccountSetting from '../../components/AccountSetting'
-import RestaurantSetting from '../../components/RestaurantSetting'
+import AccountSettings from '../../components/AccountSettings'
+import RestaurantSettings from '../../components/RestaurantSettings'
 import { useState } from 'react'
 
-const menuOptions = { account: AccountSetting, restaurant: RestaurantSetting }
+const menuOptions = { account: AccountSettings, restaurant: RestaurantSettings }
 
-const SettingPage = () => {
+const SettingsPage = () => {
   const [currentForm, setCurrentForm] = useState('account')
 
   const Form = menuOptions[currentForm]
@@ -41,4 +40,4 @@ const SettingPage = () => {
   )
 }
 
-export default SettingPage
+export default SettingsPage

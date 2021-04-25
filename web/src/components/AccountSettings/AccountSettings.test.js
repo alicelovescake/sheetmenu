@@ -1,11 +1,11 @@
 import { render } from '@redwoodjs/testing'
 
-import RestaurantSetting from './RestaurantSetting'
+import AccountSetting from './AccountSettings'
 
-describe('RestaurantSetting', () => {
+describe('AccountSetting', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<RestaurantSetting />)
+      render(<AccountSetting />)
     }).not.toThrow()
   })
 })

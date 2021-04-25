@@ -1,4 +1,4 @@
-import AccountSetting from './AccountSetting'
+import AccountSetting from './AccountSettings'
 
 export const generated = () => {
   return <AccountSetting />

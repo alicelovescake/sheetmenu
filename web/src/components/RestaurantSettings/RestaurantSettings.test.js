@@ -1,11 +1,11 @@
 import { render } from '@redwoodjs/testing'
 
-import DashboardPage from './SettingPage'
+import RestaurantSetting from './RestaurantSettings'
 
-describe('DashboardPage', () => {
+describe('RestaurantSetting', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<DashboardPage />)
+      render(<RestaurantSetting />)
     }).not.toThrow()
   })
 })

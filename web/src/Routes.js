@@ -10,7 +10,7 @@ const Routes = () => {
 
         <Private unauthenticated="home">
           <Route path="/onboard" page={OnboardPage} name="onboard" />
-          <Route path="/setting" page={SettingPage} name="setting" />
+          <Route path="/settings" page={SettingsPage} name="settings" />
         </Private>
 
         <Route notfound page={NotFoundPage} />

@@ -1,4 +1,4 @@
-import RestaurantSetting from './RestaurantSetting'
+import RestaurantSetting from './RestaurantSettings'
 
 export const generated = () => {
   return <RestaurantSetting />

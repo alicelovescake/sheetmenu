@@ -35,7 +35,7 @@ export const updateRestaurant = ({ id, input }) => {
   })
 }
 
-export const restaurantByOwnerId = async ({ ownerId }) => {
+export const restaurantByOwnerId = ({ ownerId }) => {
   return db.restaurant.findUnique({ where: { ownerId } })
 }
 

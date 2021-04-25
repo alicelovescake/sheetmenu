@@ -30,7 +30,7 @@ const GET_RESTAURANT = gql`
   }
 `
 
-const RestaurantSetting = () => {
+const RestaurantSettings = () => {
   const { currentUser } = useAuth()
   const { data } = useQuery(GET_RESTAURANT, {
     variables: { ownerId: currentUser.id },
@@ -48,6 +48,9 @@ const RestaurantSetting = () => {
     onCompleted: () => {
       toast.success('Your restaurant info is updated!')
     },
+    refetchQueries: [
+      { query: GET_RESTAURANT, variables: { ownerId: currentUser.id } },
+    ],
   })
 
   useEffect(() => {
@@ -147,4 +150,4 @@ const RestaurantSetting = () => {
   )
 }
 
-export default RestaurantSetting
+export default RestaurantSettings

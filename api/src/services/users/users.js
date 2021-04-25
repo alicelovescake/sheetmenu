@@ -13,12 +13,12 @@ export const createUser = ({ email, firebaseId }) => {
   return db.user.create({ data: { email, firebaseId } })
 }
 
-export const updateUser = (data) => {
+export const updateUser = ({ input }) => {
   requireAuth()
 
   return db.user.update({
     data: {
-      ...data.input,
+      ...input,
       updatedAt: new Date(),
     },
     where: {
