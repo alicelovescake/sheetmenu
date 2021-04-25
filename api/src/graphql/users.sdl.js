@@ -14,6 +14,7 @@ export const schema = gql`
 
   type Query {
     users: [User!]!
+    user(email: String!): User!
   }
 
   input CreateUserInput {
@@ -31,5 +32,9 @@ export const schema = gql`
     stripeId: String
     stripeSubscriptionid: String
     onboarded: Boolean
+  }
+
+  type Mutation {
+    updateUser(input: UpdateUserInput!): User!
   }
 `

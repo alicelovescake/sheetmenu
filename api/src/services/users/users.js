@@ -1,4 +1,5 @@
 import { db } from 'src/lib/db'
+import { requireAuth } from 'src/lib/auth'
 
 export const users = () => {
   return db.user.findMany()
@@ -12,14 +13,16 @@ export const createUser = ({ email, firebaseId }) => {
   return db.user.create({ data: { email, firebaseId } })
 }
 
-export const updateUser = (id, data) => {
+export const updateUser = ({ input }) => {
+  requireAuth()
+
   return db.user.update({
     data: {
-      ...data,
+      ...input,
       updatedAt: new Date(),
     },
     where: {
-      id,
+      id: context.currentUser.id,
     },
   })
 }

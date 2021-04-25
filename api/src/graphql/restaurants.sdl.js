@@ -13,6 +13,7 @@ export const schema = gql`
 
   type Query {
     restaurants: [Restaurant!]!
+    restaurantByOwnerId(ownerId: String!): Restaurant!
   }
 
   input CreateRestaurantInput {
@@ -27,5 +28,9 @@ export const schema = gql`
     sheetId: String
     brandColor: String
     domain: String
+  }
+
+  type Mutation {
+    updateRestaurant(id: String!, input: UpdateRestaurantInput!): Restaurant!
   }
 `

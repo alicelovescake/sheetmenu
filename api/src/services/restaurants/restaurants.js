@@ -22,12 +22,11 @@ export const createRestaurant = ({ name, brandColor }) => {
   })
 }
 
-export const updateRestaurant = (id, data) => {
+export const updateRestaurant = ({ id, input }) => {
   requireAuth()
-
   return db.restaurant.update({
     data: {
-      ...data,
+      ...input,
       updatedAt: new Date(),
     },
     where: {
@@ -37,7 +36,7 @@ export const updateRestaurant = (id, data) => {
 }
 
 export const restaurantByOwnerId = ({ ownerId }) => {
-  return db.restaurant.findMany({ where: { ownerId } })
+  return db.restaurant.findUnique({ where: { ownerId } })
 }
 
 export const Restaurant = {

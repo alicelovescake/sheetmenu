@@ -25,7 +25,7 @@ model Restaurant {
   id         String   @id @default(cuid())
   name       String
   owner      User     @relation(fields: [ownerId], references: [id])
-  ownerId    String
+  ownerId    String   @unique
   sheetId    String
   brandColor String
   domain     String?  @unique
