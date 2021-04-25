@@ -34,6 +34,6 @@ export const schema = gql`
   }
 
   type Mutation {
-    updateUser(input: UpdateUserInput!): User
+    updateUser(input: UpdateUserInput!): User!
   }
 `
