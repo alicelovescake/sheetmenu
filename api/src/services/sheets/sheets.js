@@ -36,7 +36,7 @@ export const createSheet = async () => {
     },
   })
 
-  if (!sheet) {
+  if (!sheet?.data?.id) {
     return
   }
 
