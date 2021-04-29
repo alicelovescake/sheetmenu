@@ -1,11 +1,11 @@
+import { google } from 'googleapis'
+import fs from 'fs'
+
 import { requireAuth } from 'src/lib/auth'
 import {
   updateRestaurant,
   restaurantByOwnerId,
 } from '../restaurants/restaurants'
-
-import { google } from 'googleapis'
-import fs from 'fs'
 
 export const createSheet = async () => {
   requireAuth()
@@ -24,6 +24,7 @@ export const createSheet = async () => {
     version: 'v3',
     auth: authClient,
   })
+
   const sheet = await driveClient.files.create({
     resource: {
       name: 'SheetMenu.csv',
@@ -34,6 +35,10 @@ export const createSheet = async () => {
       body: fs.createReadStream('src/templates/sheetmenu-template.csv'),
     },
   })
+
+  if (!sheet) {
+    return
+  }
 
   await driveClient.permissions.create({
     resource: {
