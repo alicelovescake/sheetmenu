@@ -26,6 +26,7 @@ const GET_RESTAURANT = gql`
       id
       name
       brandColor
+      sheetId
     }
   }
 `
@@ -146,6 +147,18 @@ const RestaurantSettings = () => {
           Save
         </Submit>
       </Form>
+
+      <div className="font-bold pb-10 pt-10 pl-6">
+        <h2>
+          Access your Google Sheet with{' '}
+          <a
+            className="hover:text-green-800"
+            href={`https://docs.google.com/spreadsheets/d/${data?.restaurantByOwnerId.sheetId}`}
+          >
+            this link
+          </a>
+        </h2>
+      </div>
     </div>
   )
 }

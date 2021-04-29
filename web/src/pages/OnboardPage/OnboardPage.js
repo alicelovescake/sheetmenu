@@ -21,7 +21,7 @@ const OnboardPage = () => {
   const [create, { loading }] = useMutation(ONBOARD_USER, {
     onCompleted: async () => {
       await reauthenticate()
-      navigate(routes.setting())
+      navigate(routes.settings())
     },
   })
 

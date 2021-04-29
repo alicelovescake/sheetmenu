@@ -5,6 +5,7 @@
   "dependencies": {
     "@redwoodjs/api": "^0.28.4",
     "@redwoodjs/api-server": "^0.28.4",
-    "firebase-admin": "^9.6.0"
+    "firebase-admin": "^9.6.0",
+    "googleapis": "^73.0.0"
   }
 }

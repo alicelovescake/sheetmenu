@@ -4,6 +4,7 @@ import {
   restaurantByOwnerId,
 } from '../restaurants/restaurants'
 import { updateUser } from '../users/users'
+import { createSheet } from '../sheets/sheets'
 
 export const onboard = async ({ input }) => {
   requireAuth()
@@ -12,7 +13,7 @@ export const onboard = async ({ input }) => {
     ownerId: context.currentUser.id,
   })
 
-  if (currentRestaurant.length) {
+  if (currentRestaurant) {
     return
   }
 
@@ -20,12 +21,15 @@ export const onboard = async ({ input }) => {
     name: input.restaurantName,
     brandColor: input.brandColor,
   })
+
   await updateUser({
     input: {
       name: input.userName,
       onboarded: true,
     },
   })
+
+  await createSheet()
 
   return context.currentUser.id
 }
