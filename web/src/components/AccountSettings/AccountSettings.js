@@ -35,8 +35,6 @@ const AccountSettings = () => {
     variables: { email: currentUser.email },
   })
 
-  console.log(data)
-
   const formMethods = useForm()
 
   const onSubmit = (data) => {
