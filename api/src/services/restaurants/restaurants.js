@@ -5,7 +5,7 @@ export const restaurants = () => {
   return db.restaurant.findMany()
 }
 
-export const createRestaurant = ({ name, brandColor }) => {
+export const createRestaurant = ({ name, brandColor, address }) => {
   requireAuth()
 
   return db.restaurant.create({
@@ -18,6 +18,7 @@ export const createRestaurant = ({ name, brandColor }) => {
           id: context.currentUser.id,
         },
       },
+      address: { ...address },
     },
   })
 }

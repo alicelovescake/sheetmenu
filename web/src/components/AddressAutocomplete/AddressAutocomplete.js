@@ -102,7 +102,7 @@ const AddressAutocomplete = () => {
     <div className="font-bold pr-2 text-sm">
       <div>Address</div>
       <TextField
-        name="addressNumber"
+        name="addressStreet"
         ref={address1FieldRef}
         onChange={(event) => setAddress1(event.target.value)}
         required={true}
@@ -111,7 +111,7 @@ const AddressAutocomplete = () => {
       />
       <div className="pt-5">Unit, suite, or floor #</div>
       <TextField
-        name="addressStreet"
+        name="addressNumber"
         onChange={(event) => setAddress2(event.target.value)}
         value={address2}
         className="bg-gray-100 p-2 rounded-lg block w-full"

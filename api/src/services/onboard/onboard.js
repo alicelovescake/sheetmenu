@@ -20,6 +20,14 @@ export const onboard = async ({ input }) => {
   await createRestaurant({
     name: input.restaurantName,
     brandColor: input.brandColor,
+    address: {
+      addressNumber: input.addressNumber,
+      addressStreet: input.addressStreet,
+      city: input.city,
+      country: input.country,
+      postalCode: input.postalCode,
+      state: input.state,
+    },
   })
 
   await updateUser({

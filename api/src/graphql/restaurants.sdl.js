@@ -7,6 +7,7 @@ export const schema = gql`
     sheetId: String!
     brandColor: String!
     domain: String
+    address: Address!
     createdAt: DateTime!
     updatedAt: DateTime!
   }
@@ -20,6 +21,7 @@ export const schema = gql`
     name: String!
     ownerId: String!
     brandColor: String!
+    address: Address!
   }
 
   input UpdateRestaurantInput {
@@ -28,6 +30,7 @@ export const schema = gql`
     sheetId: String
     brandColor: String
     domain: String
+    address: Address
   }
 
   type Mutation {

@@ -38,7 +38,7 @@ model Address {
   id            String     @id @default(cuid())
   restaurant    Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId  String     @unique
-  addressNumber Int
+  addressNumber String
   addressStreet String
   city          String
   country       String
