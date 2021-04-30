@@ -3,7 +3,7 @@ export const schema = gql`
     userName: String!
     restaurantName: String!
     brandColor: String!
-    addressNumber: Int
+    addressNumber: String
     addressStreet: String
     city: String
     country: String

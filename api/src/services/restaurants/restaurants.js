@@ -18,7 +18,16 @@ export const createRestaurant = ({ name, brandColor, address }) => {
           id: context.currentUser.id,
         },
       },
-      address: { ...address },
+      address: {
+        connectOrCreate: {
+          where: {
+            id: context.currentUser.id,
+          },
+          create: {
+            ...address,
+          },
+        },
+      },
     },
   })
 }
