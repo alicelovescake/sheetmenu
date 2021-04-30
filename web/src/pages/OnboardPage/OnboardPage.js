@@ -6,6 +6,7 @@ import { useMutation } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '@redwoodjs/auth'
 import { useState, useRef } from 'react'
+import AddressAutocomplete from '../../components/AddressAutocomplete'
 
 import { SketchPicker } from 'react-color'
 
@@ -28,7 +29,8 @@ const OnboardPage = () => {
   const formMethods = useForm()
 
   const onSubmit = (data) => {
-    create({ variables: { input: { ...data, brandColor: colorHex } } })
+    console.log(data)
+    // create({ variables: { input: { ...data, brandColor: colorHex } } })
   }
 
   const [diplayColorPicker, setDisplayColorPicker] = useState(false)
@@ -129,6 +131,8 @@ const OnboardPage = () => {
           </div>
           <FieldError name="colorPicker" className="error-message" />
         </div>
+
+        <AddressAutocomplete />
 
         <Submit
           className="bg-green-800 py-2 px-6 text-white rounded-lg hover:opacity-75"
