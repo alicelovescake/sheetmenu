@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '@redwoodjs/auth'
 import { toast, Toaster } from '@redwoodjs/web/toast'
+import AddressAutocomplete from '../AddressAutocomplete'
 
 import { SketchPicker } from 'react-color'
 
@@ -27,6 +28,14 @@ const GET_RESTAURANT = gql`
       name
       brandColor
       sheetId
+      address {
+        addressNumber
+        addressStreet
+        postalCode
+        city
+        state
+        country
+      }
     }
   }
 `
@@ -35,6 +44,10 @@ const RestaurantSettings = () => {
   const { currentUser } = useAuth()
   const { data } = useQuery(GET_RESTAURANT, {
     variables: { ownerId: currentUser.id },
+    onCompleted: () => {
+      setRestaurant(data.restaurantByOwnerId)
+      setColorHex(data.restaurantByOwnerId.brandColor)
+    },
   })
 
   const [diplayColorPicker, setDisplayColorPicker] = useState(false)
@@ -54,16 +67,27 @@ const RestaurantSettings = () => {
     ],
   })
 
-  useEffect(() => {
-    setRestaurant(data?.restaurantByOwnerId)
-    setColorHex(data?.restaurantByOwnerId.brandColor)
-  }, [data])
+  // useEffect(() => {
+  //   setRestaurant(data?.restaurantByOwnerId)
+  //   setColorHex(data?.restaurantByOwnerId.brandColor)
+  // }, [data])
 
   const onSubmit = (data) => {
     update({
       variables: {
         id: restaurant.id,
-        input: { name: data.restaurantName, brandColor: colorHex },
+        input: {
+          name: data.restaurantName,
+          brandColor: colorHex,
+          address: {
+            addressNumber: data.addressNumber,
+            addressStreet: data.addressStreet,
+            postalCode: data.postalCode,
+            city: data.city,
+            state: data.state,
+            country: data.country,
+          },
+        },
       },
     })
   }
@@ -104,7 +128,6 @@ const RestaurantSettings = () => {
           />
           <FieldError name="restaurantName" className="error-message" />
         </div>
-
         <div>
           <Label name="colorPicker" className="font-bold pr-2 text-sm">
             Your Brand Color:
@@ -140,6 +163,15 @@ const RestaurantSettings = () => {
           <FieldError name="colorPicker" className="error-message" />
         </div>
 
+        <AddressAutocomplete
+          addressStreet={restaurant?.address.addressStreet}
+          addressUnitNumber={restaurant?.address.addressNumber}
+          postcode={restaurant?.address.postalCode}
+          state={restaurant?.address.state}
+          city={restaurant?.address.city}
+          country={restaurant?.address.country}
+        />
+
         <Submit
           className="bg-green-800 py-2 px-6 text-white rounded-lg hover:opacity-75"
           disabled={loading}
@@ -152,7 +184,7 @@ const RestaurantSettings = () => {
         <h2>
           Access your Google Sheet with{' '}
           <a
-            className="hover:text-green-800"
+            className="hover:text-green-800 italic"
             href={`https://docs.google.com/spreadsheets/d/${data?.restaurantByOwnerId.sheetId}`}
           >
             this link

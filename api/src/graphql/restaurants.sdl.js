@@ -23,6 +23,7 @@ export const schema = gql`
     sheetId: String
     brandColor: String
     domain: String
+    address: UpdateAddressInput
   }
 
   type Mutation {

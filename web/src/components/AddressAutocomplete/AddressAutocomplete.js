@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
+import { TextField, Label } from '@redwoodjs/forms'
 
-const AddressAutocomplete = () => {
+const AddressAutocomplete = (props) => {
   const address1FieldRef = useRef(null)
-  const [address1, setAddress1] = useState('')
+  const [addressStreet, setAddressStreet] = useState(props.addressStreet || '')
   const [postcode, setPostcode] = useState('')
   const [statelocation, setStatelocation] = useState('')
-  const [locality, setLocality] = useState('')
+  const [localCity, setLocalCity] = useState('')
   const [country, setCountry] = useState('')
-  const [address2, setAddress2] = useState('')
+  const [addressUnitNumber] = useState('')
 
   useEffect(() => {
     const handleScriptLoad = (address1FieldRef) => {
@@ -79,7 +79,7 @@ const AddressAutocomplete = () => {
         }
 
         case 'locality': {
-          setLocality(component.long_name)
+          setLocalCity(component.long_name)
           break
         }
 
@@ -94,55 +94,63 @@ const AddressAutocomplete = () => {
         }
       }
     }
-    setAddress1(streetAddress)
+    setAddressStreet(streetAddress)
     setPostcode(postcode)
   }
 
   return (
     <div className="font-bold pr-2 text-sm">
-      <div>Address</div>
+      <Label name="addressStreet">Address</Label>
       <TextField
         name="addressStreet"
         ref={address1FieldRef}
-        onChange={(event) => setAddress1(event.target.value)}
         required={true}
-        value={address1}
+        defaultValue={addressStreet || props.addressStreet}
         className="bg-gray-100 p-2 rounded-lg block w-full"
       />
-      <div className="pt-5">Unit, suite, or floor #</div>
+      <Label name="addressNumber" className="pt-5">
+        Unit, suite, or floor #
+      </Label>
       <TextField
         name="addressNumber"
-        onChange={(event) => setAddress2(event.target.value)}
-        value={address2}
+        defaultValue={addressUnitNumber || props.addressUnitNumber}
         className="bg-gray-100 p-2 rounded-lg block w-full"
       />
 
-      <div className="pt-5">City*</div>
+      <Label name="city" className="pt-5">
+        City*
+      </Label>
       <TextField
         name="city"
-        defaultValue={locality}
+        defaultValue={localCity || props.city}
         className="bg-gray-100 p-2 rounded-lg block w-full"
       />
 
       <div className="flex-row gap-10">
-        <div className="pt-5">State/Province*</div>
+        <Label name="state" className="pt-5">
+          State/Province*
+        </Label>
         <TextField
           name="state"
-          defaultValue={statelocation}
+          defaultValue={statelocation || props.state}
           className="bg-gray-100 p-2 rounded-lg block w-2/5"
         />
-        <div className="pt-5">Postal code*</div>
+        <Label name="postalCode" className="pt-5">
+          Postal code*
+        </Label>
         <TextField
           name="postalCode"
-          defaultValue={postcode}
+          defaultValue={postcode || props.postcode}
           className="bg-gray-100 p-2 rounded-lg block w-2/5"
         />
       </div>
 
-      <div className="pt-5">Country/Region*</div>
+      <Label name="country" className="pt-5">
+        Country/Region*
+      </Label>
       <TextField
         name="country"
-        defaultValue={country}
+        defaultValue={country || props.country}
         className="bg-gray-100 p-2 rounded-lg block w-full"
       />
     </div>
