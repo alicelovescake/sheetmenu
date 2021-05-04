@@ -3,7 +3,7 @@ import useOnClickOutside from '../../hooks/useOnClickOutside'
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
 import { useMutation, useQuery } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { useAuth } from '@redwoodjs/auth'
 import { toast, Toaster } from '@redwoodjs/web/toast'
 import AddressAutocomplete from '../AddressAutocomplete'
@@ -67,25 +67,28 @@ const RestaurantSettings = () => {
     ],
   })
 
-  // useEffect(() => {
-  //   setRestaurant(data?.restaurantByOwnerId)
-  //   setColorHex(data?.restaurantByOwnerId.brandColor)
-  // }, [data])
-
-  const onSubmit = (data) => {
+  const onSubmit = ({
+    restaurantName,
+    addressNumber,
+    addressStreet,
+    postalCode,
+    city,
+    state,
+    country,
+  }) => {
     update({
       variables: {
         id: restaurant.id,
         input: {
-          name: data.restaurantName,
+          name: restaurantName,
           brandColor: colorHex,
           address: {
-            addressNumber: data.addressNumber,
-            addressStreet: data.addressStreet,
-            postalCode: data.postalCode,
-            city: data.city,
-            state: data.state,
-            country: data.country,
+            addressNumber,
+            addressStreet,
+            postalCode,
+            city,
+            state,
+            country,
           },
         },
       },

@@ -28,8 +28,33 @@ const OnboardPage = () => {
 
   const formMethods = useForm()
 
-  const onSubmit = (data) => {
-    create({ variables: { input: { ...data, brandColor: colorHex } } })
+  const onSubmit = ({
+    addressNumber,
+    addressStreet,
+    city,
+    country,
+    postalCode,
+    state,
+    restaurantName,
+    userName,
+  }) => {
+    create({
+      variables: {
+        input: {
+          userName,
+          restaurantName,
+          brandColor: colorHex,
+          address: {
+            addressNumber,
+            addressStreet,
+            city,
+            country,
+            postalCode,
+            state,
+          },
+        },
+      },
+    })
   }
 
   const [diplayColorPicker, setDisplayColorPicker] = useState(false)

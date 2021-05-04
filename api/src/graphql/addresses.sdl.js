@@ -25,12 +25,15 @@ export const schema = gql`
   }
 
   input UpdateAddressInput {
-    restaurantId: String
     addressNumber: String
     addressStreet: String
     city: String
     country: String
     postalCode: String
     state: String
+  }
+
+  type Mutation {
+    updateAddress(restaurantId: String, input: UpdateAddressInput): Address!
   }
 `

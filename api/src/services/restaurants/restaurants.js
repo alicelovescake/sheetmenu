@@ -19,13 +19,8 @@ export const createRestaurant = ({ name, brandColor, address }) => {
         },
       },
       address: {
-        connectOrCreate: {
-          where: {
-            id: context.currentUser.id,
-          },
-          create: {
-            ...address,
-          },
+        create: {
+          ...address,
         },
       },
     },
@@ -34,24 +29,22 @@ export const createRestaurant = ({ name, brandColor, address }) => {
 
 export const updateRestaurant = ({ id, input }) => {
   requireAuth()
+
+  const { brandColor, address, name } = input
+
   return db.restaurant.update({
     data: {
-      name: input.name,
-      brandColor: input.brandColor,
+      name,
+      brandColor,
+      updatedAt: new Date(),
       address: {
-        upsert: {
-          create: {
-            ...input.address,
-          },
-          update: {
-            ...input.address,
-          },
+        update: {
+          ...address,
         },
       },
-      updatedAt: new Date(),
     },
     where: {
-      id: id,
+      id,
     },
   })
 }

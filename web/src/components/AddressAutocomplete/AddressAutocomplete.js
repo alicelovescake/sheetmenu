@@ -2,18 +2,18 @@ import React, { useState, useEffect, useRef } from 'react'
 import { TextField, Label } from '@redwoodjs/forms'
 
 const AddressAutocomplete = (props) => {
-  const address1FieldRef = useRef(null)
+  const autocompleteFieldRef = useRef(null)
   const [addressStreet, setAddressStreet] = useState(props.addressStreet || '')
   const [postcode, setPostcode] = useState('')
-  const [statelocation, setStatelocation] = useState('')
-  const [localCity, setLocalCity] = useState('')
+  const [state, setState] = useState('')
+  const [city, setCity] = useState('')
   const [country, setCountry] = useState('')
   const [addressUnitNumber] = useState('')
 
   useEffect(() => {
-    const handleScriptLoad = (address1FieldRef) => {
+    const handleScriptLoad = (autocompleteFieldRef) => {
       const autoComplete = new window.google.maps.places.Autocomplete(
-        address1FieldRef.current,
+        autocompleteFieldRef.current,
         { fields: ['address_components', 'geometry'], types: ['address'] }
       )
 
@@ -24,13 +24,18 @@ const AddressAutocomplete = (props) => {
     }
     loadScript(
       `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&libraries=places`,
-      () => handleScriptLoad(address1FieldRef)
+      () => handleScriptLoad(autocompleteFieldRef)
     )
   }, [])
 
   const loadScript = (url, callback) => {
-    let script = document.createElement('script')
+    const script = document.createElement('script')
     script.type = 'text/javascript'
+    script.id = 'data'
+
+    if (document.getElementById('data')) {
+      return
+    }
 
     if (script.readyState) {
       script.onreadystatechange = function () {
@@ -50,7 +55,7 @@ const AddressAutocomplete = (props) => {
     document.getElementsByTagName('head')[0].appendChild(script)
   }
 
-  const handlePlaceSelect = async (autoComplete) => {
+  const handlePlaceSelect = (autoComplete) => {
     const addressObject = autoComplete.getPlace()
     let streetAddress = ''
     let postcode = ''
@@ -64,7 +69,7 @@ const AddressAutocomplete = (props) => {
         }
 
         case 'route': {
-          streetAddress = streetAddress + ' ' + component.short_name
+          streetAddress = `${streetAddress} ${component.short_name}`
           break
         }
 
@@ -79,12 +84,12 @@ const AddressAutocomplete = (props) => {
         }
 
         case 'locality': {
-          setLocalCity(component.long_name)
+          setCity(component.long_name)
           break
         }
 
         case 'administrative_area_level_1': {
-          setStatelocation(component.short_name)
+          setState(component.short_name)
           break
         }
 
@@ -103,7 +108,7 @@ const AddressAutocomplete = (props) => {
       <Label name="addressStreet">Address</Label>
       <TextField
         name="addressStreet"
-        ref={address1FieldRef}
+        ref={autocompleteFieldRef}
         required={true}
         defaultValue={addressStreet || props.addressStreet}
         className="bg-gray-100 p-2 rounded-lg block w-full"
@@ -122,7 +127,7 @@ const AddressAutocomplete = (props) => {
       </Label>
       <TextField
         name="city"
-        defaultValue={localCity || props.city}
+        defaultValue={city || props.city}
         className="bg-gray-100 p-2 rounded-lg block w-full"
       />
 
@@ -132,7 +137,7 @@ const AddressAutocomplete = (props) => {
         </Label>
         <TextField
           name="state"
-          defaultValue={statelocation || props.state}
+          defaultValue={state || props.state}
           className="bg-gray-100 p-2 rounded-lg block w-2/5"
         />
         <Label name="postalCode" className="pt-5">
