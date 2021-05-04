@@ -3,6 +3,7 @@ export const schema = gql`
     userName: String!
     restaurantName: String!
     brandColor: String!
+    address: CreateAddressInput
   }
 
   type Mutation {

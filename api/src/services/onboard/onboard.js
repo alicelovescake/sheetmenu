@@ -17,14 +17,17 @@ export const onboard = async ({ input }) => {
     return
   }
 
+  const { brandColor, address, restaurantName, userName } = input
+
   await createRestaurant({
-    name: input.restaurantName,
-    brandColor: input.brandColor,
+    name: restaurantName,
+    brandColor,
+    address,
   })
 
   await updateUser({
     input: {
-      name: input.userName,
+      name: userName,
       onboarded: true,
     },
   })
