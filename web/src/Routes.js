@@ -9,6 +9,7 @@ const Routes = () => {
         <Route path="/" page={HomePage} name="home" />
 
         <Private unauthenticated="home">
+          <Route path="/restaurant/{id}" page={RestaurantPage} name="restaurant" />
           <Route path="/onboard" page={OnboardPage} name="onboard" />
           <Route path="/settings" page={SettingsPage} name="settings" />
         </Private>

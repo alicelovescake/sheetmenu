@@ -30,12 +30,13 @@ export const createRestaurant = ({ name, brandColor, address }) => {
 export const updateRestaurant = ({ id, input }) => {
   requireAuth()
 
-  const { brandColor, address, name } = input
+  const { brandColor, address, name, sheetId } = input
 
   return db.restaurant.update({
     data: {
       name,
       brandColor,
+      sheetId,
       updatedAt: new Date(),
       address: {
         update: {
