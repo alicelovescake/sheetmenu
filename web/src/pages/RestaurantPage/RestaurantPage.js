@@ -3,19 +3,30 @@ import { Link, routes } from '@redwoodjs/router'
 import { useQuery } from '@redwoodjs/web'
 
 const GET_RESTAURANT = gql`
-  query GetRestaurant($ownerId: String!) {
-    restaurantByOwnerId(ownerId: $ownerId) {
+  query GetRestaurant($id: String!) {
+    restaurantById(id: $id) {
       id
       name
       brandColor
       sheetId
       address {
+        id
         addressNumber
         addressStreet
         postalCode
         city
         state
         country
+      }
+      menus {
+        id
+        name
+        items {
+          id
+          name
+          price
+          description
+        }
       }
     }
   }
@@ -24,6 +35,7 @@ const RestaurantPage = ({ id }) => {
   const { data } = useQuery(GET_RESTAURANT, {
     variables: { id },
   })
+  console.log(data)
 
   return (
     <>
@@ -33,7 +45,7 @@ const RestaurantPage = ({ id }) => {
       </p>
       <p>
         My default route is named <code>restaurant</code>, link to me with `
-        <Link to={routes.restaurant({ id: data?.restaurantByOwnerId.id })}>
+        <Link to={routes.restaurant({ id: data?.restaurantById.id })}>
           Restaurant
         </Link>
         `

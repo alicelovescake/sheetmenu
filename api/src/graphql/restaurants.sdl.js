@@ -8,6 +8,7 @@ export const schema = gql`
     brandColor: String!
     domain: String
     address: Address!
+    menus: [Menu]
     createdAt: DateTime!
     updatedAt: DateTime!
   }
@@ -15,6 +16,7 @@ export const schema = gql`
   type Query {
     restaurants: [Restaurant!]!
     restaurantByOwnerId(ownerId: String!): Restaurant!
+    restaurantById(id: String!): Restaurant!
   }
 
   input UpdateRestaurantInput {

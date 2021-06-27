@@ -32,7 +32,6 @@ model Restaurant {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now())
   address    Address?
-  Menu       Menu[]
 }
 
 model Address {
@@ -45,22 +44,4 @@ model Address {
   country       String
   postalCode    String
   state         String
-}
-
-model Menu {
-  id           String     @id @default(cuid())
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
-  restaurantId String     @unique
-  item         Item[]
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @default(now())
-}
-
-model Item {
-  id          String  @id @default(cuid())
-  name        String
-  price       Float
-  description String
-  Menu        Menu?   @relation(fields: [menuId], references: [id])
-  menuId      String?
 }

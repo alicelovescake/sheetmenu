@@ -1,16 +1,24 @@
 export const schema = gql`
+  type Item {
+    id: String!
+    name: String
+    price: Float
+    description: String
+  }
+
   type Menu {
     id: String!
+    name: String!
     restaurant: Restaurant!
     restaurantId: String!
-    item: [Item]!
+    items: [Item]!
     createdAt: DateTime!
     updatedAt: DateTime!
   }
 
   type Query {
     menus: [Menu!]!
-    menuByRestaurantId(restaurantId: String!): Menu!
+    menusByRestaurantId(restaurantId: String!): Menu!
   }
 
   input CreateMenuInput {

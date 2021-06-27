@@ -11,14 +11,17 @@ export const readMenu = async () => {
   // create menu
 }
 
-export const menuByRestaurantId = ({ restaurantId }) => {
-  return db.menu.findUnique({
-    where: { restaurantId },
-  })
+export const menusByRestaurantId = ({ restaurantId }) => {
+  return [
+    {
+      id: 'hello',
+      name: 'Dinner',
+    },
+  ]
 }
+
 export const Menu = {
   restaurant: (_obj, { root }) =>
     db.menu.findUnique({ where: { id: root.id } }).restaurant(),
-  item: (_obj, { root }) =>
-    db.menu.findUnique({ where: { id: root.id } }).item(),
+  items: (_obj, { root }) => [{ id: '2', price: 2.3, description: 'hot dog' }],
 }
