@@ -68,5 +68,5 @@ export const Restaurant = {
     db.restaurant.findUnique({ where: { id: root.id } }).owner(),
   address: (_obj, { root }) =>
     db.restaurant.findUnique({ where: { id: root.id } }).address(),
-  menus: (_obj, { root }) => menusByRestaurantId({ id: root.id }),
+  menus: (_obj, { root }) => menusByRestaurantId({ restaurantId: root.id }),
 }
