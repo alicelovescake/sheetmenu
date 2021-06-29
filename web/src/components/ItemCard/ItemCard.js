@@ -13,10 +13,10 @@ const ItemCard = ({ name, price, description }) => {
         <div className="text-2xl text-white absolute top-14 right-14">
           {name}
         </div>
-        <div className="text-xl text-white absolute top-30 right-16">
+        <div className="text-xl text-white absolute top-30 right-12">
           {description}
         </div>
-        <div className="text-xl text-white absolute top-44 right-20">
+        <div className="text-xl text-white absolute top-52 right-20">
           ${price}
         </div>
       </div>
