@@ -1,6 +1,7 @@
 import { useAuth } from '@redwoodjs/auth'
 import { Link, routes } from '@redwoodjs/router'
 import { useQuery } from '@redwoodjs/web'
+import Template1 from 'src/components/Template1/Template1'
 
 const GET_RESTAURANT = gql`
   query GetRestaurant($id: String!) {
@@ -31,25 +32,30 @@ const GET_RESTAURANT = gql`
     }
   }
 `
+
+const templateOptions = { 1: Template1 }
+
 const RestaurantPage = ({ id }) => {
-  const { data } = useQuery(GET_RESTAURANT, {
+  const { loading, error, data } = useQuery(GET_RESTAURANT, {
     variables: { id },
   })
-  console.log(data)
+
+  if (loading) return 'Loading...'
+
+  if (error) return `Error! ${error.message}`
+
+  const Template = templateOptions[1]
+
+  console.log(data?.restaurantById)
 
   return (
     <>
-      <h1>{id}</h1>
-      <p>
-        Find me in <code>./web/src/pages/RestaurantPage/RestaurantPage.js</code>
-      </p>
-      <p>
-        My default route is named <code>restaurant</code>, link to me with `
-        <Link to={routes.restaurant({ id: data?.restaurantById.id })}>
-          Restaurant
-        </Link>
-        `
-      </p>
+      <Template
+        address={data?.restaurantById.address}
+        brandColor={data?.restaurantById.brandColor}
+        menus={data?.restaurantById.menus}
+        name={data?.restaurantById.name}
+      />
     </>
   )
 }

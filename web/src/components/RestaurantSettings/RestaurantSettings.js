@@ -109,7 +109,7 @@ const RestaurantSettings = () => {
 
   const colorPickerRef = useRef()
   useOnClickOutside(colorPickerRef, () => setDisplayColorPicker(false))
-  console.log(data?.restaurantByOwnerId)
+
   return (
     <div>
       <h2 className="font-bold pb-10 pl-6">Restaurant Settings</h2>
