@@ -48,8 +48,9 @@ export const createSheetGoogleAPI = async () => {
       mimeType: 'application/vnd.google-apps.spreadsheet',
     },
     media: {
-      mimeType: 'text/csv',
-      body: fs.createReadStream('src/templates/sheetmenu-template.csv'),
+      mimeType:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      body: fs.createReadStream('src/templates/sheetmenu-template.xlsx'),
     },
   })
 
