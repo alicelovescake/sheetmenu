@@ -5,6 +5,7 @@ import {
 } from '../restaurants/restaurants'
 import { updateUser } from '../users/users'
 import { createSheet } from '../sheets/sheets'
+import { updateSheetFromGoogleAPI } from '../googleapi/googleapi'
 
 export const onboard = async ({ input }) => {
   requireAuth()
@@ -32,7 +33,14 @@ export const onboard = async ({ input }) => {
     },
   })
 
-  await createSheet()
+  const spreadsheetId = await createSheet()
+
+  await updateSheetFromGoogleAPI({
+    restaurantName,
+    address,
+    userName,
+    spreadsheetId,
+  })
 
   return context.currentUser.id
 }

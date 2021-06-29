@@ -1,8 +1,11 @@
 import headerPic from './header-food.jpeg'
 import MenuCard from '../MenuCard'
 import OrderCard from '../OrderCard'
+import { useRef } from 'react'
 
 const Template1 = ({ address, brandColor, menus, name }) => {
+  const orderRef = useRef(null)
+
   return (
     <>
       <header className="font-serif p-10">
@@ -20,7 +23,15 @@ const Template1 = ({ address, brandColor, menus, name }) => {
             Recipies handed down for generations. And a serious obession with
             making delicous food.
           </p>
-          <div className="text-xl mt-20 text-white bg-green-700 rounded-full w-1/3 p-4">
+          <div
+            className="text-xl mt-20 text-white bg-green-700 rounded-full w-1/3 p-4 text-center"
+            onClick={() => orderRef.current?.scrollIntoView()}
+            onKeyDown={() =>
+              orderRef.current?.scrollIntoView({ behavior: 'smooth' })
+            }
+            role="button"
+            tabIndex={0}
+          >
             Order Now
           </div>
         </div>
@@ -49,7 +60,7 @@ const Template1 = ({ address, brandColor, menus, name }) => {
         ))}
       </section>
 
-      <section>
+      <section ref={orderRef}>
         <OrderCard key={address.id} address={address} />
       </section>
     </>
