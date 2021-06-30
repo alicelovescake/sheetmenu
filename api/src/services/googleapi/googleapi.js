@@ -1,6 +1,5 @@
 import { google } from 'googleapis'
 import fs from 'fs'
-import { restaurantByOwnerId } from '../restaurants/restaurants'
 
 const createGoogleDriveClient = async () => {
   const auth = new google.auth.GoogleAuth({
@@ -121,12 +120,10 @@ export const updateSheetFromGoogleAPI = async ({
     values: values,
   }
 
-  const response = await sheetClient.spreadsheets.values.update({
+  await sheetClient.spreadsheets.values.update({
     spreadsheetId,
     range: [`Business Info!A1:B8`],
     valueInputOption: 'RAW',
     resource: body,
   })
-
-  console.log(response)
 }
