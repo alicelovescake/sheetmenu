@@ -9,8 +9,21 @@ export const schema = gql`
     domain: String
     address: Address!
     menus: [Menu]
+    busInfo: busInfo
     createdAt: DateTime!
     updatedAt: DateTime!
+  }
+
+  type busInfo {
+    id: String!
+    name: String!
+    userName: String!
+    phone: String
+    address: Address
+    description: String
+    valueProp1: String
+    valueProp2: String
+    valueProp3: String
   }
 
   type Query {

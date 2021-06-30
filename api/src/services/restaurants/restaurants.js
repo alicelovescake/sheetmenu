@@ -1,6 +1,7 @@
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 import { menusByRestaurantId } from 'src/services/menus'
+import { readSheet } from 'src/services/sheets'
 
 export const restaurants = () => {
   return db.restaurant.findMany()
@@ -66,7 +67,6 @@ export const restaurantById = ({ id }) => {
 export const Restaurant = {
   owner: (_obj, { root }) =>
     db.restaurant.findUnique({ where: { id: root.id } }).owner(),
-  address: (_obj, { root }) =>
-    db.restaurant.findUnique({ where: { id: root.id } }).address(),
+  busInfo: (_obj, { root }) => readSheet({ restaurantId: root.id }),
   menus: (_obj, { root }) => menusByRestaurantId({ restaurantId: root.id }),
 }

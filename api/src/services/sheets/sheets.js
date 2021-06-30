@@ -2,9 +2,13 @@ import { requireAuth } from 'src/lib/auth'
 import {
   updateRestaurant,
   restaurantByOwnerId,
+  restaurantById,
 } from '../restaurants/restaurants'
 
-import { createSheetGoogleAPI } from '../googleapi/googleapi'
+import {
+  getBusInfoFromGoogleAPI,
+  createSheetGoogleAPI,
+} from '../googleapi/googleapi'
 
 export const createSheet = async () => {
   requireAuth()
@@ -21,4 +25,11 @@ export const createSheet = async () => {
   })
 
   return sheet?.data?.id
+}
+
+export const readSheet = async ({ restaurantId }) => {
+  const { sheetId: spreadsheetId } = await restaurantById({ id: restaurantId })
+  const busInfo = await getBusInfoFromGoogleAPI({ spreadsheetId })
+
+  return busInfo
 }

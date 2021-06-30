@@ -1,23 +1,28 @@
-import { useAuth } from '@redwoodjs/auth'
-import { Link, routes } from '@redwoodjs/router'
 import { useQuery } from '@redwoodjs/web'
 import Template1 from 'src/components/Template1/Template1'
 
-const GET_RESTAURANT = gql`
-  query GetRestaurant($id: String!) {
+const GET_RESTURANT_INFO = gql`
+  query GetInfo($id: String!) {
     restaurantById(id: $id) {
       id
-      name
       brandColor
       sheetId
-      address {
+      busInfo {
         id
-        addressNumber
-        addressStreet
-        postalCode
-        city
-        state
-        country
+        name
+        address {
+          addressNumber
+          addressStreet
+          postalCode
+          city
+          state
+          country
+        }
+        phone
+        description
+        valueProp1
+        valueProp2
+        valueProp3
       }
       menus {
         id
@@ -36,7 +41,7 @@ const GET_RESTAURANT = gql`
 const templateOptions = { 1: Template1 }
 
 const RestaurantPage = ({ id }) => {
-  const { loading, error, data } = useQuery(GET_RESTAURANT, {
+  const { loading, error, data } = useQuery(GET_RESTURANT_INFO, {
     variables: { id },
   })
 
@@ -46,15 +51,13 @@ const RestaurantPage = ({ id }) => {
 
   const Template = templateOptions[1]
 
-  console.log(data?.restaurantById)
-
   return (
     <>
       <Template
-        address={data?.restaurantById.address}
+        address={data?.restaurantById.busInfo.address}
         brandColor={data?.restaurantById.brandColor}
         menus={data?.restaurantById.menus}
-        name={data?.restaurantById.name}
+        busInfo={data?.restaurantById.busInfo}
       />
     </>
   )

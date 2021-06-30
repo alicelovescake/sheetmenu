@@ -71,7 +71,7 @@ export const createSheetGoogleAPI = async () => {
   return sheet
 }
 
-export const getMenuFromGoogleAPI = async ({ spreadsheetId }) => {
+export const getSheetsFromGoogleAPI = async ({ spreadsheetId }) => {
   const sheetClient = await createGoogleSheetClient()
   const sheets = await sheetClient.spreadsheets.get({ spreadsheetId })
 
@@ -126,4 +126,64 @@ export const updateSheetFromGoogleAPI = async ({
     valueInputOption: 'RAW',
     resource: body,
   })
+}
+
+export const getBusInfoFromGoogleAPI = async ({ spreadsheetId }) => {
+  const sheetClient = await createGoogleSheetClient()
+
+  const { data: busInfo } = await sheetClient.spreadsheets.values.get({
+    spreadsheetId,
+    range: [`Business Info!A1:B14`],
+  })
+
+  const busInfoData = {
+    id: encodeURI(`${busInfo.values[0][1]}-${busInfo.values[1][1]}`),
+    address: {},
+  }
+
+  for (const [key, value] of busInfo.values) {
+    switch (key) {
+      case 'User Name':
+        busInfoData.userName = value || null
+        break
+      case 'Restaurant Name':
+        busInfoData.name = value || null
+        break
+      case 'Street Address':
+        busInfoData.address.addressStreet = value || null
+        break
+      case 'Apartment, suite, etc':
+        busInfoData.address.addressNumber = value || null
+        break
+      case 'City':
+        busInfoData.address.city = value || null
+        break
+      case 'State/Province':
+        busInfoData.address.state = value || null
+        break
+      case 'Country':
+        busInfoData.address.country = value || null
+        break
+      case 'ZIP/postal code':
+        busInfoData.address.postalCode = value || null
+        break
+      case 'Phone number':
+        busInfoData.phone = value || null
+        break
+      case 'Restaurant Description (3 sentences max)':
+        busInfoData.description = value || null
+        break
+      case 'Value Prop 1':
+        busInfoData.valueProp1 = value || null
+        break
+      case 'Value Prop 2':
+        busInfoData.valueProp2 = value || null
+        break
+      case 'Value Prop 3':
+        busInfoData.valueProp3 = value || null
+        break
+    }
+  }
+
+  return busInfoData
 }

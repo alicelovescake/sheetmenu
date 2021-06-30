@@ -1,7 +1,7 @@
 import { db } from 'src/lib/db'
 import { restaurantById } from '../restaurants/restaurants'
 import {
-  getMenuFromGoogleAPI,
+  getSheetsFromGoogleAPI,
   getMenuDataFromGoogleAPI,
 } from '../googleapi/googleapi'
 
@@ -11,9 +11,9 @@ export const menus = () => {
 
 export const menusByRestaurantId = async ({ restaurantId }) => {
   const { sheetId: spreadsheetId } = await restaurantById({ id: restaurantId })
-  const menus = await getMenuFromGoogleAPI({ spreadsheetId })
-  console.log(menus)
-  return menus
+  const sheets = await getSheetsFromGoogleAPI({ spreadsheetId })
+
+  return sheets
     .slice(1)
     .map(async ({ properties: { sheetId: id, title: name } }) => ({
       id,

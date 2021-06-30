@@ -3,13 +3,13 @@ import MenuCard from '../MenuCard'
 import OrderCard from '../OrderCard'
 import { useRef } from 'react'
 
-const Template1 = ({ address, brandColor, menus, name }) => {
+const Template1 = ({ address, brandColor, menus, busInfo }) => {
   const orderRef = useRef(null)
 
   return (
     <>
       <header className="font-serif p-10">
-        <h1 className="text-center text-5xl">{name}</h1>
+        <h1 className="text-center text-5xl">{busInfo.name}</h1>
       </header>
 
       <section className="flex flex-row gap-80">
@@ -18,11 +18,7 @@ const Template1 = ({ address, brandColor, menus, name }) => {
           <p className="font-bold font-serif italic underline text-green-700 pt-3">
             Fresh
           </p>
-          <p className="text-base pt-10">
-            Authentic Japanese flavors you won&apos;t find anywhere else.
-            Recipies handed down for generations. And a serious obession with
-            making delicous food.
-          </p>
+          <p className="text-base pt-10">{busInfo.description}</p>
           <div
             className="text-xl mt-20 text-white bg-green-700 rounded-full w-1/3 p-4 text-center"
             onClick={() => orderRef.current?.scrollIntoView()}
@@ -44,13 +40,13 @@ const Template1 = ({ address, brandColor, menus, name }) => {
 
       <section className="bg-white p-32 mx-80 my-20 shadow-xl rounded-xl flex justify-center items-center">
         <div className="flex-1">
-          <h1 className="font-semibold text-2xl">Fresh Ingredients</h1>
+          <h1 className="font-semibold text-2xl">{busInfo.valueProp1}</h1>
         </div>
         <div className="flex-1">
-          <h1 className="font-semibold text-2xl">Authentic Experience</h1>
+          <h1 className="font-semibold text-2xl">{busInfo.valueProp2}</h1>
         </div>
         <div className="flex-1">
-          <h1 className="ml-10 font-semibold text-2xl">Made to Order</h1>
+          <h1 className="ml-10 font-semibold text-2xl">{busInfo.valueProp3}</h1>
         </div>
       </section>
 
@@ -61,7 +57,7 @@ const Template1 = ({ address, brandColor, menus, name }) => {
       </section>
 
       <section ref={orderRef}>
-        <OrderCard key={address.id} address={address} />
+        <OrderCard address={address} phone={busInfo.phone} />
       </section>
     </>
   )
