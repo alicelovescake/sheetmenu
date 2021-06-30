@@ -1,5 +1,6 @@
 import { google } from 'googleapis'
 import fs from 'fs'
+import { restaurantByOwnerId } from '../restaurants/restaurants'
 
 const createGoogleDriveClient = async () => {
   const auth = new google.auth.GoogleAuth({
@@ -26,7 +27,7 @@ const createGoogleSheetClient = async () => {
       client_email: process.env.CLIENT_EMAIL,
       private_key: process.env.PRIVATE_KEY.replace(/\\n/gm, '\n'),
     },
-    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   })
 
   const authClient = await auth.getClient()
@@ -44,7 +45,7 @@ export const createSheetGoogleAPI = async () => {
 
   const sheet = await driveClient.files.create({
     resource: {
-      name: 'SheetMenu.csv',
+      name: 'Your SheetMenu',
       mimeType: 'application/vnd.google-apps.spreadsheet',
     },
     media: {
@@ -105,15 +106,27 @@ export const updateSheetFromGoogleAPI = async ({
 }) => {
   const sheetClient = await createGoogleSheetClient()
 
-  const values = []
+  const values = [
+    ['User Name', userName],
+    ['Restaurant Name', restaurantName],
+    ['Street Address', address.addressStreet],
+    ['Apartment, suite, etc', address.addressNumber],
+    ['City', address.city],
+    ['State/Province', address.state],
+    ['Country', address.country],
+    ['ZIP/postal code', address.postalCode],
+  ]
 
   const body = {
     values: values,
   }
 
-  await sheetClient.spreadsheets.values.update({
+  const response = await sheetClient.spreadsheets.values.update({
     spreadsheetId,
-    range: [`Business Info!A:B`],
+    range: [`Business Info!A1:B8`],
+    valueInputOption: 'RAW',
     resource: body,
   })
+
+  console.log(response)
 }

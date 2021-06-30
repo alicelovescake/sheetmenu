@@ -35,12 +35,12 @@ export const onboard = async ({ input }) => {
 
   const spreadsheetId = await createSheet()
 
-  // await updateSheetFromGoogleAPI({
-  //   restaurantName,
-  //   address,
-  //   userName,
-  //   spreadsheetId,
-  // })
+  await updateSheetFromGoogleAPI({
+    restaurantName,
+    address,
+    userName,
+    spreadsheetId,
+  })
 
   return context.currentUser.id
 }
