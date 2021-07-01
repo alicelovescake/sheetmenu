@@ -1,5 +1,6 @@
 import { useQuery } from '@redwoodjs/web'
 import Template1 from 'src/components/Template1/Template1'
+import Template2 from 'src/components/Template2/Template2'
 
 const GET_RESTURANT_INFO = gql`
   query GetInfo($id: String!) {
@@ -17,6 +18,15 @@ const GET_RESTURANT_INFO = gql`
           city
           state
           country
+        }
+        hours {
+          monday
+          tuesday
+          wednesday
+          thursday
+          friday
+          saturday
+          sunday
         }
         phone
         description
@@ -38,7 +48,7 @@ const GET_RESTURANT_INFO = gql`
   }
 `
 
-const templateOptions = { 1: Template1 }
+const templateOptions = { 1: Template1, 2: Template2 }
 
 const RestaurantPage = ({ id }) => {
   const { loading, error, data } = useQuery(GET_RESTURANT_INFO, {
@@ -49,7 +59,7 @@ const RestaurantPage = ({ id }) => {
 
   if (error) return `Error! ${error.message}`
 
-  const Template = templateOptions[1]
+  const Template = templateOptions[2]
 
   return (
     <>

@@ -24,6 +24,19 @@ export const schema = gql`
     valueProp1: String
     valueProp2: String
     valueProp3: String
+    hours: Hours
+    theme: String
+  }
+
+  type Hours {
+    id: String!
+    monday: String
+    tuesday: String
+    wednesday: String
+    thursday: String
+    friday: String
+    saturday: String
+    sunday: String
   }
 
   type Query {

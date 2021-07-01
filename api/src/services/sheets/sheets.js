@@ -30,6 +30,6 @@ export const createSheet = async () => {
 export const readSheet = async ({ restaurantId }) => {
   const { sheetId: spreadsheetId } = await restaurantById({ id: restaurantId })
   const busInfo = await getBusInfoFromGoogleAPI({ spreadsheetId })
-
+  console.log(busInfo)
   return busInfo
 }
