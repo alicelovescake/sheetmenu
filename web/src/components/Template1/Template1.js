@@ -57,7 +57,7 @@ const Template1 = ({ address, brandColor, menus, busInfo }) => {
       </section>
 
       <section ref={orderRef}>
-        <OrderCard address={address} phone={busInfo.phone} />
+        <OrderCard address={address} phone={busInfo.phone} busInfo={busInfo} />
       </section>
     </>
   )

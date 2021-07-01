@@ -1,4 +1,5 @@
 import MenuCard2 from '../MenuCard2/MenuCard2'
+import ContactCard2 from '../ContactCard2/ContactCard2'
 
 const Template2 = ({ address, brandColor, menus, busInfo }) => {
   return (
@@ -14,17 +15,7 @@ const Template2 = ({ address, brandColor, menus, busInfo }) => {
         <div className="text-center text-5xl font-extrabold mt-10">
           {busInfo.name}
         </div>
-        <div className="font-bold text-center text-xl pb-4 absolute bottom-0 left-12">
-          <div className="text-2xl font-black pb-8">Contact Us!</div>
-          <div>{busInfo.phone}</div>
-          <div>
-            {address.addressNumber} {address.addressStreet}
-          </div>
-          <div>
-            {address.city}, {address.state}, {address.country}
-          </div>
-          <div>{address.postalCode}</div>
-        </div>
+        <ContactCard2 address={address} busInfo={busInfo} />
       </section>
 
       <section className="w-2/6 h-screen bg-gray-800  pt-24 overflow-scroll">

@@ -33,6 +33,7 @@ const GET_RESTURANT_INFO = gql`
         valueProp1
         valueProp2
         valueProp3
+        theme
       }
       menus {
         id
@@ -59,7 +60,7 @@ const RestaurantPage = ({ id }) => {
 
   if (error) return `Error! ${error.message}`
 
-  const Template = templateOptions[2]
+  const Template = templateOptions[data?.restaurantById.busInfo.theme]
 
   return (
     <>
