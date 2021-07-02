@@ -3,12 +3,12 @@ export const schema = gql`
     id: String!
     restaurant: Restaurant!
     restaurantId: String!
-    addressNumber: String!
-    addressStreet: String!
-    city: String!
-    country: String!
-    postalCode: String!
-    state: String!
+    addressNumber: String
+    addressStreet: String
+    city: String
+    country: String
+    postalCode: String
+    state: String
   }
 
   type Query {
@@ -16,12 +16,12 @@ export const schema = gql`
   }
 
   input CreateAddressInput {
-    addressNumber: String!
-    addressStreet: String!
-    city: String!
-    country: String!
-    postalCode: String!
-    state: String!
+    addressNumber: String
+    addressStreet: String
+    city: String
+    country: String
+    postalCode: String
+    state: String
   }
 
   input UpdateAddressInput {

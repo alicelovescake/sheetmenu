@@ -10,6 +10,7 @@ export const schema = gql`
     address: Address!
     menus: [Menu]
     busInfo: busInfo
+    theme: String
     createdAt: DateTime!
     updatedAt: DateTime!
   }
@@ -25,7 +26,6 @@ export const schema = gql`
     valueProp2: String
     valueProp3: String
     hours: Hours
-    theme: String
   }
 
   type Hours {
@@ -50,6 +50,7 @@ export const schema = gql`
     ownerId: String
     sheetId: String
     brandColor: String
+    theme: String
     domain: String
     address: UpdateAddressInput
   }

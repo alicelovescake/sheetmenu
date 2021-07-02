@@ -186,9 +186,6 @@ export const getBusInfoFromGoogleAPI = async ({ spreadsheetId }) => {
       case 'Header Picture':
         busInfoData.headerPic = value || null
         break
-      case 'Theme: Enter value 1 or 2 ':
-        busInfoData.theme = value || null
-        break
       case 'Hours of Operation: Monday':
         busInfoData.hours.monday = value || null
         break

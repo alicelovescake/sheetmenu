@@ -28,6 +28,7 @@ model Restaurant {
   ownerId    String   @unique
   sheetId    String
   brandColor String
+  theme      String?
   domain     String?  @unique
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now())
@@ -38,10 +39,10 @@ model Address {
   id            String     @id @default(cuid())
   restaurant    Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId  String     @unique
-  addressNumber String
-  addressStreet String
-  city          String
-  country       String
-  postalCode    String
-  state         String
+  addressNumber String?
+  addressStreet String?
+  city          String?
+  country       String?
+  postalCode    String?
+  state         String?
 }
