@@ -15,12 +15,16 @@ const Template1 = ({ address, brandColor, menus, busInfo }) => {
       <section className="flex flex-row gap-80">
         <div className="font-sans-serif text-7xl tracking-wide p-10">
           Eat Something{' '}
-          <p className="font-bold font-serif italic underline text-green-700 pt-3">
+          <p
+            className="font-bold font-serif italic underline pt-3"
+            style={{ color: brandColor }}
+          >
             Fresh
           </p>
           <p className="text-base pt-10">{busInfo.description}</p>
           <div
-            className="text-xl mt-20 text-white bg-green-700 rounded-full w-1/3 p-4 text-center"
+            className="text-xl mt-20 text-white rounded-full w-1/3 p-4 text-center"
+            style={{ backgroundColor: brandColor }}
             onClick={() => orderRef.current?.scrollIntoView()}
             onKeyDown={() =>
               orderRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -57,7 +61,12 @@ const Template1 = ({ address, brandColor, menus, busInfo }) => {
       </section>
 
       <section ref={orderRef}>
-        <OrderCard address={address} phone={busInfo.phone} busInfo={busInfo} />
+        <OrderCard
+          address={address}
+          phone={busInfo.phone}
+          busInfo={busInfo}
+          brandColor={brandColor}
+        />
       </section>
     </>
   )

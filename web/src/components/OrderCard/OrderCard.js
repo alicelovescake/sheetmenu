@@ -1,6 +1,9 @@
-const OrderCard = ({ address, phone, busInfo }) => {
+const OrderCard = ({ address, phone, busInfo, brandColor }) => {
   return (
-    <div className="bg-green-700 text-white p-20 mt-20 rounded-2xl flex justify-between">
+    <div
+      className="text-white p-20 mt-20 rounded-2xl flex justify-between"
+      style={{ backgroundColor: brandColor }}
+    >
       <div>
         <h2 className="font-extrabold text-3xl pb-8">Contact Us!</h2>
         <h2 className="font-bold text-xl pb-4">

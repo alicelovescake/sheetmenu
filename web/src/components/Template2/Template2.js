@@ -18,7 +18,10 @@ const Template2 = ({ address, brandColor, menus, busInfo }) => {
         <ContactCard2 address={address} busInfo={busInfo} />
       </section>
 
-      <section className="w-2/6 h-screen bg-gray-800  pt-24 overflow-scroll">
+      <section
+        className="w-2/6 h-screen pt-24 overflow-scroll"
+        style={{ backgroundColor: brandColor }}
+      >
         {menus.map((menu) => (
           <MenuCard2 key={menu.id} name={menu.name} items={menu.items} />
         ))}

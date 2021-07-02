@@ -35,7 +35,6 @@ const RestaurantSettings = ({ data, update, loading }) => {
     })
   }
 
-  console.log(restaurant?.id)
   const handleColorClick = () => {
     setDisplayColorPicker(!diplayColorPicker)
   }
@@ -119,7 +118,7 @@ const RestaurantSettings = ({ data, update, loading }) => {
         <h2>
           Access your Google Sheet with{' '}
           <a
-            className="hover:text-green-800 italic text-xl"
+            className="hover:text-green-800 italic text-xl underline"
             href={`https://docs.google.com/spreadsheets/d/${data?.restaurantByOwnerId.sheetId}`}
           >
             this link
