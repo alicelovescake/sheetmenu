@@ -1,6 +1,6 @@
 import { useQuery } from '@redwoodjs/web'
-import Template1 from 'src/components/Template1/Template1'
-import Template2 from 'src/components/Template2/Template2'
+import UmamiMichelinTemplate from 'src/components/UmamiMichelin/UmamiMichelinTemplate'
+import SpicyModernTemplate from 'src/components/SpicyModern/SpicyModernTemplate'
 
 const GET_RESTURANT_INFO = gql`
   query GetInfo($id: String!) {
@@ -49,7 +49,7 @@ const GET_RESTURANT_INFO = gql`
   }
 `
 
-const templateOptions = { 1: Template1, 2: Template2 }
+const templateOptions = { 1: UmamiMichelinTemplate, 2: SpicyModernTemplate }
 
 const RestaurantPage = ({ id }) => {
   const { loading, error, data } = useQuery(GET_RESTURANT_INFO, {

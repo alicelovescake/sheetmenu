@@ -3,7 +3,7 @@ import MenuCard from '../MenuCard'
 import OrderCard from '../OrderCard'
 import { useRef } from 'react'
 
-const Template1 = ({ address, brandColor, menus, busInfo }) => {
+const UmamiMichelinTemplate = ({ address, brandColor, menus, busInfo }) => {
   const orderRef = useRef(null)
 
   return (
@@ -77,4 +77,4 @@ const Template1 = ({ address, brandColor, menus, busInfo }) => {
   )
 }
 
-export default Template1
+export default UmamiMichelinTemplate

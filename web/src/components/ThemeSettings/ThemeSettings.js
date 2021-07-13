@@ -34,9 +34,9 @@ const ThemeSettings = ({ data, update, loading }) => {
           <button
             onClick={handleClick}
             value="theme1"
-            className="text-2xl font-bold mt-10 ml-44 px-8 py-4 rounded-2xl bg-green-700 text-white hover:bg-green-800 hover:outline-none"
+            className="text-2xl font-bold mt-10 ml-36 px-8 py-4 rounded-2xl bg-green-700 text-white hover:bg-green-800 hover:outline-none"
           >
-            Theme 1
+            Try Umami Michelin
           </button>
         </div>
 
@@ -53,15 +53,15 @@ const ThemeSettings = ({ data, update, loading }) => {
           <button
             onClick={handleClick}
             value="theme2"
-            className="text-2xl font-bold mt-10 ml-52 px-8 py-4 rounded-2xl bg-green-700 text-white hover:bg-green-800 hover:outline-none"
+            className="text-2xl font-bold mt-10 ml-44 px-8 py-4 rounded-2xl bg-green-700 text-white hover:bg-green-800 hover:outline-none"
           >
-            Theme 2
+            Try Spicy Modern
           </button>
         </div>
       </div>
 
       <div className="text-xl font-bold text-center mt-20">
-        Preview your Restaurant Page with theme with{' '}
+        Preview your Restaurant Page with theme with x
         <a
           className="hover:text-green-800 italic text-xl underline"
           href={`/restaurant/${data?.restaurantByOwnerId.id}`}
