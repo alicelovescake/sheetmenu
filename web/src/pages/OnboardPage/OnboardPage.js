@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { useAuth } from '@redwoodjs/auth'
 import { useState, useRef } from 'react'
 import AddressAutocomplete from '../../components/AddressAutocomplete'
+import { VscLoading } from 'react-icons/Vsc'
 
 import { SketchPicker } from 'react-color'
 
@@ -75,6 +76,11 @@ const OnboardPage = () => {
 
   const colorPickerRef = useRef()
   useOnClickOutside(colorPickerRef, () => setDisplayColorPicker(false))
+
+  if (loading)
+    return (
+      <VscLoading className="animate-spin text-8xl text-green-700 mx-auto h-screen" />
+    )
 
   return (
     <main className="max-w-2xl mx-auto p-6">

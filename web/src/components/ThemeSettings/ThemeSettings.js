@@ -61,7 +61,7 @@ const ThemeSettings = ({ data, update, loading }) => {
       </div>
 
       <div className="text-xl font-bold text-center mt-20">
-        Preview your Restaurant Page with theme with x
+        Preview your Restaurant Page with theme with{' '}
         <a
           className="hover:text-green-800 italic text-xl underline"
           href={`/restaurant/${data?.restaurantByOwnerId.id}`}

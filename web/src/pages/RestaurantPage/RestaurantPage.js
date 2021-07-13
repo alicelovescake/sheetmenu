@@ -1,4 +1,5 @@
 import { useQuery } from '@redwoodjs/web'
+import { VscLoading } from 'react-icons/Vsc'
 import UmamiMichelinTemplate from 'src/components/UmamiMichelin/UmamiMichelinTemplate'
 import SpicyModernTemplate from 'src/components/SpicyModern/SpicyModernTemplate'
 
@@ -56,7 +57,10 @@ const RestaurantPage = ({ id }) => {
     variables: { id },
   })
 
-  if (loading) return 'Loading...'
+  if (loading)
+    return (
+      <VscLoading className="animate-spin text-8xl text-green-700 mx-auto h-screen" />
+    )
 
   if (error) return `Error! ${error.message}`
 
