@@ -2,10 +2,10 @@ import { requireAuth } from 'src/lib/auth'
 import {
   createRestaurant,
   restaurantByOwnerId,
+  createInitialSheet,
 } from '../restaurants/restaurants'
 import { updateUser } from '../users/users'
-import { createSheet } from '../sheets/sheets'
-import { updateSheetFromGoogleAPI } from '../google/google'
+import { updateSheet } from '../google/google'
 
 export const onboard = async ({ input }) => {
   requireAuth()
@@ -32,9 +32,9 @@ export const onboard = async ({ input }) => {
     },
   })
 
-  const spreadsheetId = await createSheet()
+  const spreadsheetId = await createInitialSheet()
 
-  await updateSheetFromGoogleAPI({
+  await updateSheet({
     restaurantName,
     address,
     userName,

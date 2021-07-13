@@ -57,34 +57,25 @@ const SettingsPage = () => {
   return (
     <main className="inline-flex">
       <div className="grid-flow-col grid-cols-1 grid-rows-3 gap-4 border-2 inline-grid font-semibold">
-        <div>
-          <div
+        <div className="flex flex-col">
+          <button
             onClick={() => setCurrentForm('account')}
-            onKeyDown={() => setCurrentForm('account')}
-            role="button"
-            tabIndex={0}
             className="border-2 p-10"
           >
             Account
-          </div>
-          <div
+          </button>
+          <button
             onClick={() => setCurrentForm('restaurant')}
-            onKeyDown={() => setCurrentForm('restaurant')}
-            role="button"
-            tabIndex={0}
             className="border-2 p-10"
           >
             Restaurant
-          </div>
-          <div
+          </button>
+          <button
             onClick={() => setCurrentForm('theme')}
-            onKeyDown={() => setCurrentForm('theme')}
-            role="button"
-            tabIndex={0}
             className="border-2 p-10"
           >
             Theme
-          </div>
+          </button>
         </div>
       </div>
       <div className=" pl-20">

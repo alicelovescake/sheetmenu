@@ -35,12 +35,12 @@ const createGoogleSheetClient = async () => {
   return sheetClient
 }
 
-export const createSheetGoogleAPI = async () => {
+export const createSheet = async (name) => {
   const driveClient = await createGoogleDriveClient()
 
   const sheet = await driveClient.files.create({
     resource: {
-      name: 'Your SheetMenu',
+      name: `${name}'s SheetMenu`,
       mimeType: 'application/vnd.google-apps.spreadsheet',
     },
     media: {
@@ -60,21 +60,21 @@ export const createSheetGoogleAPI = async () => {
       role: 'writer',
       emailAddress: context.currentUser.email,
     },
-    fileId: sheet?.data?.id,
+    fileId: sheet.data.id,
     fields: 'id',
   })
 
   return sheet
 }
 
-export const getSheetsFromGoogleAPI = async ({ spreadsheetId }) => {
+export const getSheets = async ({ spreadsheetId }) => {
   const sheetClient = await createGoogleSheetClient()
   const sheets = await sheetClient.spreadsheets.get({ spreadsheetId })
 
   return sheets.data.sheets
 }
 
-export const getMenuDataFromGoogleAPI = async ({ spreadsheetId, name }) => {
+export const getMenuData = async ({ spreadsheetId, name }) => {
   const sheetClient = await createGoogleSheetClient()
 
   const { data: menuData } = await sheetClient.spreadsheets.values.get({
@@ -93,7 +93,7 @@ export const getMenuDataFromGoogleAPI = async ({ spreadsheetId, name }) => {
   )
 }
 
-export const updateSheetFromGoogleAPI = async ({
+export const updateSheet = async ({
   restaurantName,
   address,
   userName,
@@ -113,7 +113,7 @@ export const updateSheetFromGoogleAPI = async ({
   ]
 
   const body = {
-    values: values,
+    values,
   }
 
   await sheetClient.spreadsheets.values.update({
@@ -124,20 +124,20 @@ export const updateSheetFromGoogleAPI = async ({
   })
 }
 
-export const getBusInfoFromGoogleAPI = async ({ spreadsheetId }) => {
+export const getBusInfo = async ({ spreadsheetId }) => {
   const sheetClient = await createGoogleSheetClient()
 
   const { data: busInfo } = await sheetClient.spreadsheets.values.get({
     spreadsheetId,
     range: [`Business Info!A1:B21`],
   })
-  console.log(busInfo)
+
   const busInfoData = {
     id: encodeURI(`${busInfo.values[0][1]}-${busInfo.values[1][1]}`),
     address: {},
     hours: {},
   }
-  console.log(busInfo)
+
   for (const [key, value] of busInfo.values) {
     switch (key) {
       case 'Restaurant Name':
