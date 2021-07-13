@@ -1,39 +1,35 @@
 import { google } from 'googleapis'
 import fs from 'fs'
 
-const createGoogleDriveClient = async () => {
-  const auth = new google.auth.GoogleAuth({
+const createGoogleAuth = (scopes) => {
+  return new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.CLIENT_EMAIL,
       private_key: process.env.PRIVATE_KEY.replace(/\\n/gm, '\n'),
     },
-    scopes: ['https://www.googleapis.com/auth/drive'],
+    scopes,
   })
+}
 
-  const authClient = await auth.getClient()
+const createGoogleDriveClient = async () => {
+  const auth = createGoogleAuth(['https://www.googleapis.com/auth/drive'])
 
   const driveClient = google.drive({
     version: 'v3',
-    auth: authClient,
+    auth: await auth.getClient(),
   })
 
   return driveClient
 }
 
 const createGoogleSheetClient = async () => {
-  const auth = new google.auth.GoogleAuth({
-    credentials: {
-      client_email: process.env.CLIENT_EMAIL,
-      private_key: process.env.PRIVATE_KEY.replace(/\\n/gm, '\n'),
-    },
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-  })
-
-  const authClient = await auth.getClient()
+  const auth = createGoogleAuth([
+    'https://www.googleapis.com/auth/spreadsheets',
+  ])
 
   const sheetClient = google.sheets({
     version: 'v4',
-    auth: authClient,
+    auth: await auth.getClient(),
   })
 
   return sheetClient

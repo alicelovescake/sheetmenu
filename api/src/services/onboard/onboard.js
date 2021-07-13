@@ -5,7 +5,7 @@ import {
 } from '../restaurants/restaurants'
 import { updateUser } from '../users/users'
 import { createSheet } from '../sheets/sheets'
-import { updateSheetFromGoogleAPI } from '../googleapi/googleapi'
+import { updateSheetFromGoogleAPI } from '../google/google'
 
 export const onboard = async ({ input }) => {
   requireAuth()
@@ -23,7 +23,6 @@ export const onboard = async ({ input }) => {
   await createRestaurant({
     name: restaurantName,
     brandColor,
-    address,
   })
 
   await updateUser({

@@ -7,7 +7,7 @@ export const restaurants = () => {
   return db.restaurant.findMany()
 }
 
-export const createRestaurant = ({ name, brandColor, address }) => {
+export const createRestaurant = ({ name, brandColor }) => {
   requireAuth()
 
   return db.restaurant.create({

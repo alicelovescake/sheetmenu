@@ -10,11 +10,6 @@ export const schema = gql`
     postalCode: String
     state: String
   }
-
-  type Query {
-    addresses: [Address!]!
-  }
-
   input CreateAddressInput {
     addressNumber: String
     addressStreet: String
@@ -31,9 +26,5 @@ export const schema = gql`
     country: String
     postalCode: String
     state: String
-  }
-
-  type Mutation {
-    updateAddress(restaurantId: String, input: UpdateAddressInput): Address!
   }
 `

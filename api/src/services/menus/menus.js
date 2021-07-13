@@ -3,7 +3,7 @@ import { restaurantById } from '../restaurants/restaurants'
 import {
   getSheetsFromGoogleAPI,
   getMenuDataFromGoogleAPI,
-} from '../googleapi/googleapi'
+} from '../google/google'
 
 export const menus = () => {
   return db.menu.findMany()

@@ -5,10 +5,7 @@ import {
   restaurantById,
 } from '../restaurants/restaurants'
 
-import {
-  getBusInfoFromGoogleAPI,
-  createSheetGoogleAPI,
-} from '../googleapi/googleapi'
+import { getBusInfoFromGoogleAPI, createSheetGoogleAPI } from '../google/google'
 
 export const createSheet = async () => {
   requireAuth()
