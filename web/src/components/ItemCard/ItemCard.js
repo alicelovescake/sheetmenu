@@ -1,4 +1,4 @@
-const ItemCard = ({ name, price, description }) => {
+const ItemCard = ({ name, price, description, brandColor }) => {
   return (
     <div>
       <div
@@ -9,7 +9,10 @@ const ItemCard = ({ name, price, description }) => {
         }}
         className="p-20 rounded-full z-10 relative ml-3"
       ></div>
-      <div className="py-36 px-24 bg-green-700 shadow-2xl -mt-10 rounded-xl">
+      <div
+        className="py-36 px-24 shadow-2xl -mt-10 rounded-xl"
+        style={{ backgroundColor: brandColor }}
+      >
         <div className="text-2xl text-white relative top-1/4 right-8 ">
           {name}
         </div>

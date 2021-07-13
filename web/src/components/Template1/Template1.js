@@ -56,7 +56,12 @@ const Template1 = ({ address, brandColor, menus, busInfo }) => {
 
       <section>
         {menus.map((menu) => (
-          <MenuCard key={menu.id} name={menu.name} items={menu.items} />
+          <MenuCard
+            key={menu.id}
+            name={menu.name}
+            items={menu.items}
+            brandColor={brandColor}
+          />
         ))}
       </section>
 

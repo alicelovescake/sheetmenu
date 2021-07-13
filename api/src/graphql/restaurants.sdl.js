@@ -18,7 +18,6 @@ export const schema = gql`
   type busInfo {
     id: String!
     name: String!
-    userName: String!
     phone: String
     address: Address
     description: String

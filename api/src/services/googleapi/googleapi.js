@@ -133,20 +133,17 @@ export const getBusInfoFromGoogleAPI = async ({ spreadsheetId }) => {
 
   const { data: busInfo } = await sheetClient.spreadsheets.values.get({
     spreadsheetId,
-    range: [`Business Info!A1:B22`],
+    range: [`Business Info!A1:B21`],
   })
-
+  console.log(busInfo)
   const busInfoData = {
     id: encodeURI(`${busInfo.values[0][1]}-${busInfo.values[1][1]}`),
     address: {},
     hours: {},
   }
-
+  console.log(busInfo)
   for (const [key, value] of busInfo.values) {
     switch (key) {
-      case 'User Name':
-        busInfoData.userName = value || null
-        break
       case 'Restaurant Name':
         busInfoData.name = value || null
         break
@@ -183,7 +180,7 @@ export const getBusInfoFromGoogleAPI = async ({ spreadsheetId }) => {
       case 'Value Prop 3':
         busInfoData.valueProp3 = value || null
         break
-      case 'Header Picture':
+      case 'Hero Picture':
         busInfoData.headerPic = value || null
         break
       case 'Hours of Operation: Monday':

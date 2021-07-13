@@ -20,11 +20,6 @@ export const createRestaurant = ({ name, brandColor, address }) => {
           id: context.currentUser.id,
         },
       },
-      address: {
-        create: {
-          ...address,
-        },
-      },
     },
   })
 }
@@ -32,7 +27,7 @@ export const createRestaurant = ({ name, brandColor, address }) => {
 export const updateRestaurant = async ({ id, input }) => {
   requireAuth()
 
-  const { brandColor, address, name, sheetId, theme } = input
+  const { brandColor, name, sheetId, theme } = input
 
   return db.restaurant.update({
     data: {
@@ -41,11 +36,6 @@ export const updateRestaurant = async ({ id, input }) => {
       sheetId,
       theme,
       updatedAt: new Date(),
-      address: {
-        update: {
-          ...address,
-        },
-      },
     },
     where: {
       id,

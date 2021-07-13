@@ -1,6 +1,6 @@
 import ItemCard from '../ItemCard'
 
-const MenuCard = ({ name, items }) => {
+const MenuCard = ({ name, items, brandColor }) => {
   return (
     <>
       <div className="text-center text-4xl font-serif m-20">{name}</div>
@@ -11,6 +11,7 @@ const MenuCard = ({ name, items }) => {
             name={item.name}
             price={item.price}
             description={item.description}
+            brandColor={brandColor}
           />
         ))}
       </div>
