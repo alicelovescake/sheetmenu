@@ -77,10 +77,11 @@ const OnboardPage = () => {
   const colorPickerRef = useRef()
   useOnClickOutside(colorPickerRef, () => setDisplayColorPicker(false))
 
-  if (loading)
+  if (loading) {
     return (
       <VscLoading className="animate-spin text-8xl text-green-700 mx-auto h-screen" />
     )
+  }
 
   return (
     <main className="max-w-2xl mx-auto p-6">

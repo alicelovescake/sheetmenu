@@ -1,12 +1,6 @@
 import { Toaster } from '@redwoodjs/web/toast'
 const ThemeSettings = ({ data, update, loading }) => {
-  const handleClick = (e) => {
-    let themeSelection
-    if (e.target.value === 'theme2') {
-      themeSelection = '2'
-    } else {
-      themeSelection = '1'
-    }
+  const selectTheme = (themeSelection) => {
     update({
       variables: {
         id: data.restaurantByOwnerId.id,
@@ -32,8 +26,7 @@ const ThemeSettings = ({ data, update, loading }) => {
           ></div>
 
           <button
-            onClick={handleClick}
-            value="theme1"
+            onClick={() => selectTheme(1)}
             className="text-2xl font-bold mt-10 ml-36 px-8 py-4 rounded-2xl bg-green-700 text-white hover:bg-green-800 hover:outline-none"
           >
             Try Umami Michelin
@@ -51,8 +44,7 @@ const ThemeSettings = ({ data, update, loading }) => {
           ></div>
 
           <button
-            onClick={handleClick}
-            value="theme2"
+            onClick={() => selectTheme(2)}
             className="text-2xl font-bold mt-10 ml-44 px-8 py-4 rounded-2xl bg-green-700 text-white hover:bg-green-800 hover:outline-none"
           >
             Try Spicy Modern

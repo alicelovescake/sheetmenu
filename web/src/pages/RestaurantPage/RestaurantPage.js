@@ -57,10 +57,11 @@ const RestaurantPage = ({ id }) => {
     variables: { id },
   })
 
-  if (loading)
+  if (loading) {
     return (
       <VscLoading className="animate-spin text-8xl text-green-700 mx-auto h-screen" />
     )
+  }
 
   if (error) return `Error! ${error.message}`
 
