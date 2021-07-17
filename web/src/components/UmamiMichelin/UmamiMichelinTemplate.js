@@ -1,6 +1,6 @@
 import headerPic from './header-food.jpeg'
-import MenuCard from '../MenuCard'
-import OrderCard from '../OrderCard'
+import MenuCard from './MenuCard'
+import ContactCard from './ContactCard'
 import { useRef } from 'react'
 
 const UmamiMichelinTemplate = ({ address, brandColor, menus, busInfo }) => {
@@ -66,7 +66,7 @@ const UmamiMichelinTemplate = ({ address, brandColor, menus, busInfo }) => {
       </section>
 
       <section ref={orderRef}>
-        <OrderCard
+        <ContactCard
           address={address}
           phone={busInfo.phone}
           busInfo={busInfo}

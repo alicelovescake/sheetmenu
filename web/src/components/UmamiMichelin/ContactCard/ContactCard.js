@@ -1,4 +1,4 @@
-const OrderCard = ({ address, phone, busInfo, brandColor }) => {
+const ContactCard = ({ address, phone, busInfo, brandColor }) => {
   return (
     <div
       className="text-white p-20 mt-20 rounded-2xl flex justify-between"
@@ -36,4 +36,4 @@ const OrderCard = ({ address, phone, busInfo, brandColor }) => {
   )
 }
 
-export default OrderCard
+export default ContactCard

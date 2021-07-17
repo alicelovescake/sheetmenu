@@ -1,4 +1,4 @@
-const ContactCard2 = ({ address, busInfo }) => {
+const ContactCard = ({ address, busInfo }) => {
   return (
     <div className="font-bold text-center text-base pb-4 absolute bottom-0 ">
       <div className="text-xl font-black pb-8 text-center">
@@ -26,4 +26,4 @@ const ContactCard2 = ({ address, busInfo }) => {
   )
 }
 
-export default ContactCard2
+export default ContactCard

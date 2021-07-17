@@ -9,13 +9,13 @@ export const schema = gql`
     domain: String
     address: Address!
     menus: [Menu]
-    busInfo: busInfo
+    busInfo: BusInfo
     theme: String
     createdAt: DateTime!
     updatedAt: DateTime!
   }
 
-  type busInfo {
+  type BusInfo {
     id: String!
     name: String!
     phone: String

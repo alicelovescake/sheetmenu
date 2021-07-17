@@ -1,4 +1,4 @@
-const MenuCard2 = ({ name, items }) => {
+const MenuCard = ({ name, items }) => {
   return (
     <>
       <div className="font-thin text-6xl text-center text-gray-100 italic ">
@@ -23,4 +23,4 @@ const MenuCard2 = ({ name, items }) => {
   )
 }
 
-export default MenuCard2
+export default MenuCard

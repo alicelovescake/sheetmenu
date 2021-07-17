@@ -1,7 +1,7 @@
-import MenuCard2 from '../MenuCard2/MenuCard2'
-import ContactCard2 from '../ContactCard2/ContactCard2'
+import MenuCard from './MenuCard/MenuCard'
+import ContactCard from './ContactCard/ContactCard'
 
-const Template2 = ({ address, brandColor, menus, busInfo }) => {
+const SpicyModernTemplate = ({ address, brandColor, menus, busInfo }) => {
   return (
     <div className="flex">
       <section
@@ -15,7 +15,7 @@ const Template2 = ({ address, brandColor, menus, busInfo }) => {
         <div className="text-center text-5xl font-extrabold mt-10">
           {busInfo.name}
         </div>
-        <ContactCard2 address={address} busInfo={busInfo} />
+        <ContactCard address={address} busInfo={busInfo} />
       </section>
 
       <section
@@ -23,7 +23,7 @@ const Template2 = ({ address, brandColor, menus, busInfo }) => {
         style={{ backgroundColor: brandColor }}
       >
         {menus.map((menu) => (
-          <MenuCard2 key={menu.id} name={menu.name} items={menu.items} />
+          <MenuCard key={menu.id} name={menu.name} items={menu.items} />
         ))}
       </section>
 
@@ -45,4 +45,4 @@ const Template2 = ({ address, brandColor, menus, busInfo }) => {
   )
 }
 
-export default Template2
+export default SpicyModernTemplate
