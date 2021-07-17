@@ -2,9 +2,10 @@ import { requireAuth } from 'src/lib/auth'
 import {
   createRestaurant,
   restaurantByOwnerId,
+  createInitialSheet,
 } from '../restaurants/restaurants'
 import { updateUser } from '../users/users'
-import { createSheet } from '../sheets/sheets'
+import { updateSheet } from '../google/google'
 
 export const onboard = async ({ input }) => {
   requireAuth()
@@ -22,7 +23,6 @@ export const onboard = async ({ input }) => {
   await createRestaurant({
     name: restaurantName,
     brandColor,
-    address,
   })
 
   await updateUser({
@@ -32,7 +32,14 @@ export const onboard = async ({ input }) => {
     },
   })
 
-  await createSheet()
+  const spreadsheetId = await createInitialSheet()
+
+  await updateSheet({
+    restaurantName,
+    address,
+    userName,
+    spreadsheetId,
+  })
 
   return context.currentUser.id
 }

@@ -1,95 +1,35 @@
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
-import { useMutation, useQuery } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
-import { useState, useRef } from 'react'
-import { useAuth } from '@redwoodjs/auth'
-import { toast, Toaster } from '@redwoodjs/web/toast'
-import AddressAutocomplete from '../AddressAutocomplete'
+import { useState, useRef, useEffect } from 'react'
+import { Toaster } from '@redwoodjs/web/toast'
 
 import { SketchPicker } from 'react-color'
 
-const UPDATE_RESTAURANT = gql`
-  mutation UpdateRestaurantMutation(
-    $id: String!
-    $input: UpdateRestaurantInput!
-  ) {
-    updateRestaurant(id: $id, input: $input) {
-      id
-    }
-  }
-`
-
-const GET_RESTAURANT = gql`
-  query GetRestaurant($ownerId: String!) {
-    restaurantByOwnerId(ownerId: $ownerId) {
-      id
-      name
-      brandColor
-      sheetId
-      address {
-        addressNumber
-        addressStreet
-        postalCode
-        city
-        state
-        country
-      }
-    }
-  }
-`
-
-const RestaurantSettings = () => {
-  const { currentUser } = useAuth()
-  const { data } = useQuery(GET_RESTAURANT, {
-    variables: { ownerId: currentUser.id },
-    onCompleted: () => {
-      setRestaurant(data.restaurantByOwnerId)
-      setColorHex(data.restaurantByOwnerId.brandColor)
-    },
-  })
-
+const RestaurantSettings = ({ data, update, loading }) => {
   const [diplayColorPicker, setDisplayColorPicker] = useState(false)
 
   const [colorHex, setColorHex] = useState('#FFFFFF')
 
   const [restaurant, setRestaurant] = useState(null)
 
+  useEffect(() => {
+    if (data) {
+      setRestaurant(data.restaurantByOwnerId)
+      setColorHex(data.restaurantByOwnerId.brandColor)
+    }
+  }, [data])
+
   const formMethods = useForm()
 
-  const [update, { loading }] = useMutation(UPDATE_RESTAURANT, {
-    onCompleted: () => {
-      toast.success('Your restaurant info is updated!')
-    },
-    refetchQueries: [
-      { query: GET_RESTAURANT, variables: { ownerId: currentUser.id } },
-    ],
-  })
-
-  const onSubmit = ({
-    restaurantName,
-    addressNumber,
-    addressStreet,
-    postalCode,
-    city,
-    state,
-    country,
-  }) => {
+  const onSubmit = ({ restaurantName }) => {
     update({
       variables: {
         id: restaurant.id,
         input: {
           name: restaurantName,
           brandColor: colorHex,
-          address: {
-            addressNumber,
-            addressStreet,
-            postalCode,
-            city,
-            state,
-            country,
-          },
         },
       },
     })
@@ -166,15 +106,6 @@ const RestaurantSettings = () => {
           <FieldError name="colorPicker" className="error-message" />
         </div>
 
-        <AddressAutocomplete
-          addressStreet={restaurant?.address.addressStreet}
-          addressUnitNumber={restaurant?.address.addressNumber}
-          postcode={restaurant?.address.postalCode}
-          state={restaurant?.address.state}
-          city={restaurant?.address.city}
-          country={restaurant?.address.country}
-        />
-
         <Submit
           className="bg-green-800 py-2 px-6 text-white rounded-lg hover:opacity-75"
           disabled={loading}
@@ -183,11 +114,11 @@ const RestaurantSettings = () => {
         </Submit>
       </Form>
 
-      <div className="font-bold pb-10 pt-10 pl-6">
+      <div className="font-bold pb-10 pt-10 pl-6 text-xl">
         <h2>
           Access your Google Sheet with{' '}
           <a
-            className="hover:text-green-800 italic"
+            className="hover:text-green-800 italic text-xl underline"
             href={`https://docs.google.com/spreadsheets/d/${data?.restaurantByOwnerId.sheetId}`}
           >
             this link
