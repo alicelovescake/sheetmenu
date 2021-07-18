@@ -1,7 +1,7 @@
 import { useQuery } from '@redwoodjs/web'
 import { VscLoading } from 'react-icons/Vsc'
-import UmamiMichelinTemplate from 'src/components/UmamiMichelin/UmamiMichelinTemplate'
-import SpicyModernTemplate from 'src/components/SpicyModern/SpicyModernTemplate'
+
+import { getThemeTemplate } from 'src/utils/themes'
 
 const GET_RESTURANT_INFO = gql`
   query GetInfo($id: String!) {
@@ -50,9 +50,7 @@ const GET_RESTURANT_INFO = gql`
   }
 `
 
-const templateOptions = { 1: UmamiMichelinTemplate, 2: SpicyModernTemplate }
-
-const RestaurantPage = ({ id }) => {
+const RestaurantPage = ({ id, themeId }) => {
   const { loading, error, data } = useQuery(GET_RESTURANT_INFO, {
     variables: { id },
   })
@@ -65,7 +63,7 @@ const RestaurantPage = ({ id }) => {
 
   if (error) return `Error! ${error.message}`
 
-  const Template = templateOptions[data?.restaurantById.theme || '2']
+  const Template = getThemeTemplate(themeId || data?.restaurantById.theme)
 
   return (
     <>
