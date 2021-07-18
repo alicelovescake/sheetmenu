@@ -64,12 +64,14 @@ const SettingsPage = () => {
           >
             Account
           </button>
+
           <button
             onClick={() => setCurrentForm('restaurant')}
             className="border-2 p-10"
           >
             Restaurant
           </button>
+
           <button
             onClick={() => setCurrentForm('theme')}
             className="border-2 p-10"

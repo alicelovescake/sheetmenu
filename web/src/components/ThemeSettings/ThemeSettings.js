@@ -1,11 +1,15 @@
 import { Toaster } from '@redwoodjs/web/toast'
-const ThemeSettings = ({ data, update, loading }) => {
-  const selectTheme = (themeSelection) => {
+import { Link, routes } from '@redwoodjs/router'
+
+import { themes } from 'src/utils/themes'
+
+const ThemeSettings = ({ data, update }) => {
+  const selectTheme = (theme) => {
     update({
       variables: {
         id: data.restaurantByOwnerId.id,
         input: {
-          theme: themeSelection,
+          theme,
         },
       },
     })
@@ -13,53 +17,44 @@ const ThemeSettings = ({ data, update, loading }) => {
 
   return (
     <>
-      <div className="flex">
+      <div className="grid grid-cols-2 gap-20 w-full">
         <Toaster />
-        <div className="m-10 mr-20">
-          <div
-            className="px-64 py-40 border-green-700 border-4 shadow-2xl"
-            style={{
-              backgroundImage: 'url(/template2.png)',
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-            }}
-          ></div>
 
-          <button
-            onClick={() => selectTheme(1)}
-            className="text-2xl font-bold mt-10 ml-36 px-8 py-4 rounded-2xl bg-green-700 text-white hover:bg-green-800 hover:outline-none"
-          >
-            Try Umami Michelin
-          </button>
-        </div>
+        {themes.map(({ id, name, preview }) => (
+          <div key={id} className="space-y-4 text-center">
+            <div
+              className="px-64 py-40 border-green-700 border-4 shadow-xl"
+              style={{
+                backgroundImage: `url(${preview})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+              }}
+            ></div>
 
-        <div className="m-10">
-          <div
-            className="px-72 py-40 border-green-700 border-4 shadow-2xl"
-            style={{
-              backgroundImage: 'url(/template1.jpg)',
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-            }}
-          ></div>
+            <div className="flex justify-between items-center">
+              <div className="font-bold text-2xl">{name}</div>
 
-          <button
-            onClick={() => selectTheme(2)}
-            className="text-2xl font-bold mt-10 ml-44 px-8 py-4 rounded-2xl bg-green-700 text-white hover:bg-green-800 hover:outline-none"
-          >
-            Try Spicy Modern
-          </button>
-        </div>
-      </div>
+              <div className="space-x-4">
+                <Link
+                  to={routes.restaurant({
+                    id: data?.restaurantByOwnerId.id,
+                    themeId: id,
+                  })}
+                  className="hover:text-green-800"
+                >
+                  Preview
+                </Link>
 
-      <div className="text-xl font-bold text-center mt-20">
-        Preview your Restaurant Page with theme with{' '}
-        <a
-          className="hover:text-green-800 italic text-xl underline"
-          href={`/restaurant/${data?.restaurantByOwnerId.id}`}
-        >
-          this link
-        </a>
+                <button
+                  onClick={() => selectTheme(id)}
+                  className="px-4 py-2 rounded-2xl bg-green-700 text-white hover:bg-green-800 hover:outline-none"
+                >
+                  Select
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </>
   )
