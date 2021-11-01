@@ -6,6 +6,6 @@ export const schema = gql`
   }
 
   type Mutation {
-    onboard(input: OnboardInput!): String
+    onboard(input: OnboardInput!): String @skipAuth
   }
 `

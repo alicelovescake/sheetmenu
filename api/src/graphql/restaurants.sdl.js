@@ -12,8 +12,8 @@ export const schema = gql`
   }
 
   type Query {
-    restaurants: [Restaurant!]!
-    restaurantByOwnerId(ownerId: String!): Restaurant!
+    restaurants: [Restaurant!]! @skipAuth
+    restaurantByOwnerId(ownerId: String!): Restaurant! @skipAuth
   }
 
   input CreateRestaurantInput {
@@ -32,5 +32,6 @@ export const schema = gql`
 
   type Mutation {
     updateRestaurant(id: String!, input: UpdateRestaurantInput!): Restaurant!
+      @requireAuth
   }
 `
