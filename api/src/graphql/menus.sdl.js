@@ -17,8 +17,8 @@ export const schema = gql`
   }
 
   type Query {
-    menus: [Menu!]!
-    menusByRestaurantId(restaurantId: String!): Menu!
+    menus: [Menu!]! @skipAuth
+    menusByRestaurantId(restaurantId: String!): Menu! @skipAuth
   }
 
   input CreateMenuInput {

@@ -1,5 +1,6 @@
 import { google } from 'googleapis'
 import fs from 'fs'
+import path from 'path'
 
 const createGoogleAuth = (scopes) => {
   return new google.auth.GoogleAuth({
@@ -46,7 +47,12 @@ export const createSheet = async (name) => {
     media: {
       mimeType:
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      body: fs.createReadStream('src/templates/sheetmenu-template.xlsx'),
+      body: fs.createReadStream(
+        path.resolve(
+          __dirname,
+          '../../../src/templates/sheetmenu-template.xlsx'
+        )
+      ),
     },
   })
 
