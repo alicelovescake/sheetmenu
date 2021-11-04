@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@redwoodjs/api": "^0.28.4",
-    "@redwoodjs/api-server": "^0.28.4",
-    "firebase-admin": "^9.6.0",
+    "@redwoodjs/api": "^0.38.0",
+    "@redwoodjs/api-server": "^0.38.0",
+    "firebase-admin": "^9.11.1",
     "googleapis": "^73.0.0"
   }
 }

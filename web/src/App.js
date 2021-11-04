@@ -1,6 +1,6 @@
 import { AuthProvider } from '@redwoodjs/auth'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import { initializeApp, getApps, getApp } from '@firebase/app'
+import * as firebaseAuth from '@firebase/auth'
 import { FatalErrorBoundary } from '@redwoodjs/web'
 import { RedwoodApolloProvider } from '@redwoodjs/web/apollo'
 
@@ -9,7 +9,7 @@ import Routes from 'src/Routes'
 
 import './index.css'
 
-const firebaseClientConfig = {
+const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
   projectId: process.env.FIREBASE_PROJECT_ID,
@@ -18,10 +18,18 @@ const firebaseClientConfig = {
   appId: process.env.FIREBASE_APP_ID,
 }
 
-const firebaseClient = ((config) => {
-  firebase.initializeApp(config)
-  return firebase
-})(firebaseClientConfig)
+const firebaseApp = ((config) => {
+  const apps = getApps()
+  if (!apps.length) {
+    initializeApp(config)
+  }
+  return getApp()
+})(firebaseConfig)
+
+export const firebaseClient = {
+  firebaseAuth,
+  firebaseApp,
+}
 
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>

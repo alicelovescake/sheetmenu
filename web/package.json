@@ -13,11 +13,11 @@
     ]
   },
   "dependencies": {
-    "@redwoodjs/auth": "^0.28.4",
-    "@redwoodjs/forms": "^0.28.4",
-    "@redwoodjs/router": "^0.28.4",
-    "@redwoodjs/web": "^0.28.4",
-    "firebase": "^8.3.2",
+    "@redwoodjs/auth": "^0.38.0",
+    "@redwoodjs/forms": "^0.38.0",
+    "@redwoodjs/router": "^0.38.0",
+    "@redwoodjs/web": "^0.38.0",
+    "firebase": "^9.0.2",
     "google-maps-react": "^2.0.6",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",

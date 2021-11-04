@@ -5,10 +5,9 @@
 //     return await db.user.findUnique({ where: { email } })
 //   }
 
-import { AuthenticationError } from '@redwoodjs/api'
+import { AuthenticationError } from '@redwoodjs/graphql-server'
 import admin from 'firebase-admin'
 
-import { db } from './db'
 import { user, createUser } from 'src/services/users/users'
 
 const config = {
@@ -23,7 +22,11 @@ const config = {
 
 const adminApp = admin.initializeApp(config)
 
-export const getCurrentUser = async (decoded, { token, type }) => {
+export const getCurrentUser = async (decoded, { token }) => {
+  if (!decoded) {
+    return null
+  }
+
   const { email, uid } = await adminApp.auth().verifyIdToken(token)
 
   let existingUser = await user({ email })

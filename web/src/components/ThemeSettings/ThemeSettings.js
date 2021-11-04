@@ -46,7 +46,7 @@ const ThemeSettings = ({ data, update }) => {
                 </Link>
 
                 <button
-                  onClick={() => selectTheme(id)}
+                  onClick={() => selectTheme(`${id}`)}
                   className="px-4 py-2 rounded-2xl bg-green-700 text-white hover:bg-green-800 hover:outline-none"
                 >
                   Select
