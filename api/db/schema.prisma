@@ -28,6 +28,7 @@ model Restaurant {
   ownerId    String   @unique
   sheetId    String
   brandColor String
+  theme      String?
   domain     String?  @unique
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now())

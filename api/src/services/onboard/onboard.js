@@ -2,8 +2,10 @@ import { requireAuth } from 'src/lib/auth'
 import {
   createRestaurant,
   restaurantByOwnerId,
+  createInitialSheet,
 } from '../restaurants/restaurants'
 import { updateUser } from '../users/users'
+import { updateSheet } from '../google/google'
 
 export const onboard = async ({ input }) => {
   requireAuth()
@@ -12,19 +14,31 @@ export const onboard = async ({ input }) => {
     ownerId: context.currentUser.id,
   })
 
-  if (currentRestaurant.length) {
+  if (currentRestaurant) {
     return
   }
 
+  const { brandColor, address, restaurantName, userName } = input
+
   await createRestaurant({
-    name: input.restaurantName,
-    brandColor: input.brandColor,
+    name: restaurantName,
+    brandColor,
   })
+
   await updateUser({
     input: {
-      name: input.userName,
+      name: userName,
       onboarded: true,
     },
+  })
+
+  const spreadsheetId = await createInitialSheet()
+
+  await updateSheet({
+    restaurantName,
+    address,
+    userName,
+    spreadsheetId,
   })
 
   return context.currentUser.id

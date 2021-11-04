@@ -15,6 +15,7 @@ const Routes = () => {
 
         <Route notfound page={NotFoundPage} />
       </Set>
+      <Route path="/restaurant/{id}" page={RestaurantPage} name="restaurant" />
     </Router>
   )
 }

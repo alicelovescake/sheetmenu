@@ -6,6 +6,8 @@ import { useMutation } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '@redwoodjs/auth'
 import { useState, useRef } from 'react'
+import AddressAutocomplete from '../../components/AddressAutocomplete'
+import { VscLoading } from 'react-icons/Vsc'
 
 import { SketchPicker } from 'react-color'
 
@@ -21,14 +23,39 @@ const OnboardPage = () => {
   const [create, { loading }] = useMutation(ONBOARD_USER, {
     onCompleted: async () => {
       await reauthenticate()
-      navigate(routes.setting())
+      navigate(routes.settings())
     },
   })
 
   const formMethods = useForm()
 
-  const onSubmit = (data) => {
-    create({ variables: { input: { ...data, brandColor: colorHex } } })
+  const onSubmit = ({
+    addressNumber,
+    addressStreet,
+    city,
+    country,
+    postalCode,
+    state,
+    restaurantName,
+    userName,
+  }) => {
+    create({
+      variables: {
+        input: {
+          userName,
+          restaurantName,
+          brandColor: colorHex,
+          address: {
+            addressNumber,
+            addressStreet,
+            city,
+            country,
+            postalCode,
+            state,
+          },
+        },
+      },
+    })
   }
 
   const [diplayColorPicker, setDisplayColorPicker] = useState(false)
@@ -49,6 +76,12 @@ const OnboardPage = () => {
 
   const colorPickerRef = useRef()
   useOnClickOutside(colorPickerRef, () => setDisplayColorPicker(false))
+
+  if (loading) {
+    return (
+      <VscLoading className="animate-spin text-8xl text-green-700 mx-auto h-screen" />
+    )
+  }
 
   return (
     <main className="max-w-2xl mx-auto p-6">
@@ -129,6 +162,8 @@ const OnboardPage = () => {
           </div>
           <FieldError name="colorPicker" className="error-message" />
         </div>
+
+        <AddressAutocomplete />
 
         <Submit
           className="bg-green-800 py-2 px-6 text-white rounded-lg hover:opacity-75"

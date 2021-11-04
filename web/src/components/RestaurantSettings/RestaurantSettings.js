@@ -1,68 +1,36 @@
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
-import { useMutation, useQuery } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
 import { useState, useRef, useEffect } from 'react'
-import { useAuth } from '@redwoodjs/auth'
-import { toast, Toaster } from '@redwoodjs/web/toast'
+import { Toaster } from '@redwoodjs/web/toast'
 
 import { SketchPicker } from 'react-color'
 
-const UPDATE_RESTAURANT = gql`
-  mutation UpdateRestaurantMutation(
-    $id: String!
-    $input: UpdateRestaurantInput!
-  ) {
-    updateRestaurant(id: $id, input: $input) {
-      id
-    }
-  }
-`
-
-const GET_RESTAURANT = gql`
-  query GetRestaurant($ownerId: String!) {
-    restaurantByOwnerId(ownerId: $ownerId) {
-      id
-      name
-      brandColor
-    }
-  }
-`
-
-const RestaurantSettings = () => {
-  const { currentUser } = useAuth()
-  const { data } = useQuery(GET_RESTAURANT, {
-    variables: { ownerId: currentUser.id },
-  })
-
+const RestaurantSettings = ({ data, update, loading }) => {
   const [diplayColorPicker, setDisplayColorPicker] = useState(false)
 
   const [colorHex, setColorHex] = useState('#FFFFFF')
 
   const [restaurant, setRestaurant] = useState(null)
 
-  const formMethods = useForm()
-
-  const [update, { loading }] = useMutation(UPDATE_RESTAURANT, {
-    onCompleted: () => {
-      toast.success('Your restaurant info is updated!')
-    },
-    refetchQueries: [
-      { query: GET_RESTAURANT, variables: { ownerId: currentUser.id } },
-    ],
-  })
-
   useEffect(() => {
-    setRestaurant(data?.restaurantByOwnerId)
-    setColorHex(data?.restaurantByOwnerId.brandColor)
+    if (data) {
+      setRestaurant(data.restaurantByOwnerId)
+      setColorHex(data.restaurantByOwnerId.brandColor)
+    }
   }, [data])
 
-  const onSubmit = (data) => {
+  const formMethods = useForm()
+
+  const onSubmit = ({ restaurantName }) => {
     update({
       variables: {
         id: restaurant.id,
-        input: { name: data.restaurantName, brandColor: colorHex },
+        input: {
+          name: restaurantName,
+          brandColor: colorHex,
+        },
       },
     })
   }
@@ -103,7 +71,6 @@ const RestaurantSettings = () => {
           />
           <FieldError name="restaurantName" className="error-message" />
         </div>
-
         <div>
           <Label name="colorPicker" className="font-bold pr-2 text-sm">
             Your Brand Color:
@@ -146,6 +113,18 @@ const RestaurantSettings = () => {
           Save
         </Submit>
       </Form>
+
+      <div className="font-bold pb-10 pt-10 pl-6 text-xl">
+        <h2>
+          Access your Google Sheet with{' '}
+          <a
+            className="hover:text-green-800 italic text-xl underline"
+            href={`https://docs.google.com/spreadsheets/d/${data?.restaurantByOwnerId.sheetId}`}
+          >
+            this link
+          </a>
+        </h2>
+      </div>
     </div>
   )
 }

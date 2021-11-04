@@ -18,10 +18,13 @@
     "@redwoodjs/router": "^0.38.0",
     "@redwoodjs/web": "^0.38.0",
     "firebase": "^9.0.2",
+    "google-maps-react": "^2.0.6",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-color": "^2.19.3",
-    "react-dom": "^17.0.1"
+    "react-dependent-script": "^1.1.2",
+    "react-dom": "^17.0.1",
+    "react-icons": "^4.2.0"
   },
   "devDependencies": {
     "autoprefixer": "9.8.6",
