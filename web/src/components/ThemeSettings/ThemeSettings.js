@@ -5,7 +5,6 @@ import { themes } from 'src/utils/themes'
 
 const ThemeSettings = ({ data, update }) => {
   const selectTheme = (theme) => {
-    console.log('theme', theme)
     update({
       variables: {
         id: data.restaurantByOwnerId.id,
