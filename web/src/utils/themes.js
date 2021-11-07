@@ -3,13 +3,13 @@ import UmamiMichelinTemplate from 'src/components/UmamiMichelin/UmamiMichelinTem
 
 export const themes = [
   {
-    id: 1,
+    id: 'umami-michelin',
     name: 'Umami Michelin',
     preview: '/themes/umami-michelin.png',
     template: UmamiMichelinTemplate,
   },
   {
-    id: 2,
+    id: 'spicy-modern',
     name: 'Spicy Modern',
     preview: '/themes/spicy-modern.jpg',
     template: SpicyModernTemplate,

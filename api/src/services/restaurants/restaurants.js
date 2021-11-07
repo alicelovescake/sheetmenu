@@ -15,6 +15,7 @@ export const createRestaurant = ({ name, brandColor }) => {
       name,
       sheetId: '',
       brandColor,
+      theme: 'umami-michelin',
       owner: {
         connect: {
           id: context.currentUser.id,
