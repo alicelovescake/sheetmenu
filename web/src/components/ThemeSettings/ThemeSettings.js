@@ -5,6 +5,7 @@ import { themes } from 'src/utils/themes'
 
 const ThemeSettings = ({ data, update }) => {
   const selectTheme = (theme) => {
+    console.log('theme', theme)
     update({
       variables: {
         id: data.restaurantByOwnerId.id,
@@ -38,7 +39,6 @@ const ThemeSettings = ({ data, update }) => {
                 <Link
                   to={routes.restaurant({
                     id: data?.restaurantByOwnerId.id,
-                    themeId: id,
                   })}
                   className="hover:text-green-800"
                 >

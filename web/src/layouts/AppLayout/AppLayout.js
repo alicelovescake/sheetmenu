@@ -1,5 +1,11 @@
 import { useAuth } from '@redwoodjs/auth'
-import { navigate, Redirect, routes, useLocation } from '@redwoodjs/router'
+import {
+  navigate,
+  Redirect,
+  routes,
+  useLocation,
+  Link,
+} from '@redwoodjs/router'
 
 import Logo from 'src/components/Logo'
 
@@ -22,7 +28,7 @@ const AppLayout = ({ children }) => {
       await logIn()
     }
   }
-
+  console.log(currentUser)
   return (
     <>
       {requiresOnboarding ? (
@@ -33,6 +39,17 @@ const AppLayout = ({ children }) => {
             <Logo />
 
             <div>
+              {currentUser && (
+                <button className="bg-green-800 py-2 px-6 text-white rounded-lg hover:opacity-75 mr-4 font-bold">
+                  <Link
+                    to={routes.restaurant({
+                      id: currentUser.restaurantId,
+                    })}
+                  >
+                    View Website
+                  </Link>
+                </button>
+              )}
               <button onClick={handleAuth}>
                 {isAuthenticated ? 'Log out' : 'Log in'}
               </button>

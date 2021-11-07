@@ -10,6 +10,8 @@ import admin from 'firebase-admin'
 
 import { user, createUser } from 'src/services/users/users'
 
+import { restaurantByOwnerId } from 'src/services/restaurants/restaurants'
+
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -35,7 +37,9 @@ export const getCurrentUser = async (decoded, { token }) => {
     existingUser = await createUser({ email, firebaseId: uid })
   }
 
-  return existingUser
+  const restaurant = await restaurantByOwnerId({ ownerId: existingUser.id })
+
+  return { ...existingUser, restaurantId: restaurant.id }
 }
 
 // Use this function in your services to check that a user is logged in, and
