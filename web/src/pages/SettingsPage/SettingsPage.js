@@ -1,7 +1,6 @@
 import AccountSettings from '../../components/AccountSettings'
 import RestaurantSettings from '../../components/RestaurantSettings'
 import ThemeSettings from '../../components/ThemeSettings'
-import { useState } from 'react'
 import { toast } from '@redwoodjs/web/toast'
 import { useAuth } from '@redwoodjs/auth'
 import { useMutation, useQuery } from '@redwoodjs/web'
@@ -50,38 +49,25 @@ const SettingsPage = () => {
     ],
   })
 
-  const [currentForm, setCurrentForm] = useState('account')
-
-  const Form = menuOptions[currentForm]
-
   return (
-    <main className="inline-flex">
-      <div className="grid-flow-col grid-cols-1 grid-rows-3 gap-4 border-2 inline-grid font-semibold">
-        <div className="flex flex-col">
-          <button
-            onClick={() => setCurrentForm('account')}
-            className="border-2 p-10"
-          >
-            Account
-          </button>
-
-          <button
-            onClick={() => setCurrentForm('restaurant')}
-            className="border-2 p-10"
-          >
-            Restaurant
-          </button>
-
-          <button
-            onClick={() => setCurrentForm('theme')}
-            className="border-2 p-10"
-          >
-            Theme
-          </button>
-        </div>
+    <main className="mt-10 p-4 pt-0 max-w-6xl mx-auto">
+      <div className="font-bold p-4 text-xl bg-green-100 rounded-lg">
+        Access your Google Sheet with this link:{' '}
+        <a
+          className="hover:text-green-800 text-xl underline break-all"
+          href={`https://docs.google.com/spreadsheets/d/${data?.restaurantByOwnerId.sheetId}`}
+        >
+          {`https://docs.google.com/spreadsheets/d/${data?.restaurantByOwnerId.sheetId}`}
+        </a>
       </div>
-      <div className=" pl-20">
-        <Form data={data} update={update} loading={loading} />
+      <div className="pt-20">
+        <AccountSettings data={data} update={update} loading={loading} />
+      </div>
+      <div className="pt-20">
+        <RestaurantSettings data={data} update={update} loading={loading} />
+      </div>
+      <div className="py-20">
+        <ThemeSettings data={data} update={update} loading={loading} />
       </div>
     </main>
   )

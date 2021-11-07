@@ -43,7 +43,7 @@ const AccountSettings = () => {
 
   return (
     <div>
-      <h2 className="font-bold pb-10 pl-6">Account Settings</h2>
+      <h2 className="font-bold pb-10 pl-2 text-2xl">Account Settings</h2>
       <Toaster />
       <Form
         onSubmit={onSubmit}

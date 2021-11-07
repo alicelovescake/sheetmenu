@@ -52,7 +52,7 @@ const RestaurantSettings = ({ data, update, loading }) => {
 
   return (
     <div>
-      <h2 className="font-bold pb-10 pl-6">Restaurant Settings</h2>
+      <h2 className="font-bold pb-10 pl-2 text-2xl">Restaurant Settings</h2>
       <Toaster />
       <Form
         onSubmit={onSubmit}
@@ -113,18 +113,6 @@ const RestaurantSettings = ({ data, update, loading }) => {
           Save
         </Submit>
       </Form>
-
-      <div className="font-bold pb-10 pt-10 pl-6 text-xl">
-        <h2>
-          Access your Google Sheet with{' '}
-          <a
-            className="hover:text-green-800 italic text-xl underline"
-            href={`https://docs.google.com/spreadsheets/d/${data?.restaurantByOwnerId.sheetId}`}
-          >
-            this link
-          </a>
-        </h2>
-      </div>
     </div>
   )
 }
