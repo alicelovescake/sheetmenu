@@ -17,6 +17,7 @@ const ThemeSettings = ({ data, update }) => {
 
   return (
     <>
+      <h2 className="font-bold pb-10 pl-2 text-2xl">Theme Settings</h2>
       <div className="grid grid-cols-2 gap-20 w-full">
         <Toaster />
 
