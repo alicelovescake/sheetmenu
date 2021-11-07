@@ -39,6 +39,7 @@ const ThemeSettings = ({ data, update }) => {
                 <Link
                   to={routes.restaurant({
                     id: data?.restaurantByOwnerId.id,
+                    themeId: id,
                   })}
                   className="hover:text-green-800"
                 >
