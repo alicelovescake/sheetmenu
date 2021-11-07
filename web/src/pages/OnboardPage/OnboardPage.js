@@ -1,4 +1,4 @@
-import { navigate, routes } from '@redwoodjs/router'
+import { navigate, routes, Redirect } from '@redwoodjs/router'
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
@@ -18,7 +18,8 @@ const ONBOARD_USER = gql`
 `
 
 const OnboardPage = () => {
-  const { reauthenticate } = useAuth()
+  const { reauthenticate, currentUser } = useAuth()
+  console.log('CURR ONBOARD', currentUser)
 
   const [create, { loading }] = useMutation(ONBOARD_USER, {
     onCompleted: async () => {
@@ -81,6 +82,10 @@ const OnboardPage = () => {
     return (
       <VscLoading className="animate-spin text-8xl text-green-700 mx-auto h-screen" />
     )
+  }
+
+  if (currentUser.restaurantId) {
+    return <Redirect to={routes.home()} />
   }
 
   return (
