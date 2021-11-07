@@ -19,7 +19,6 @@ const ONBOARD_USER = gql`
 
 const OnboardPage = () => {
   const { reauthenticate, currentUser } = useAuth()
-  console.log('CURR ONBOARD', currentUser)
 
   const [create, { loading }] = useMutation(ONBOARD_USER, {
     onCompleted: async () => {
