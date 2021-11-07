@@ -28,7 +28,6 @@ const AppLayout = ({ children }) => {
       await logIn()
     }
   }
-  console.log(currentUser)
   return (
     <>
       {requiresOnboarding ? (
