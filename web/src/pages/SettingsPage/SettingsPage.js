@@ -1,15 +1,10 @@
 import AccountSettings from '../../components/AccountSettings'
+import SubscriptionSettings from '../../components/SubscriptionSettings'
 import RestaurantSettings from '../../components/RestaurantSettings'
 import ThemeSettings from '../../components/ThemeSettings'
 import { toast } from '@redwoodjs/web/toast'
 import { useAuth } from '@redwoodjs/auth'
 import { useMutation, useQuery } from '@redwoodjs/web'
-
-const menuOptions = {
-  account: AccountSettings,
-  restaurant: RestaurantSettings,
-  theme: ThemeSettings,
-}
 
 const UPDATE_RESTAURANT = gql`
   mutation UpdateRestaurantMutation(
@@ -68,6 +63,9 @@ const SettingsPage = () => {
       </div>
       <div className="py-20">
         <ThemeSettings data={data} update={update} loading={loading} />
+      </div>
+      <div className="py-20">
+        <SubscriptionSettings />
       </div>
     </main>
   )

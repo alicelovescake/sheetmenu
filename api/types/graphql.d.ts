@@ -53,6 +53,10 @@ export type CreateAddressInput = {
   state?: Maybe<Scalars['String']>;
 };
 
+export type CreateCheckoutSessionInput = {
+  priceId: Scalars['String'];
+};
+
 export type CreateMenuInput = {
   restaurantId: Scalars['String'];
 };
@@ -99,9 +103,15 @@ export type Menu = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createCheckoutSession?: Maybe<Scalars['String']>;
   onboard?: Maybe<Scalars['String']>;
   updateRestaurant: Restaurant;
   updateUser: User;
+};
+
+
+export type MutationCreateCheckoutSessionArgs = {
+  input: CreateCheckoutSessionInput;
 };
 
 
@@ -301,6 +311,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   BusInfo: ResolverTypeWrapper<BusInfo>;
   CreateAddressInput: CreateAddressInput;
+  CreateCheckoutSessionInput: CreateCheckoutSessionInput;
   CreateMenuInput: CreateMenuInput;
   CreateUserInput: CreateUserInput;
   Date: ResolverTypeWrapper<Scalars['Date']>;
@@ -331,6 +342,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   BusInfo: BusInfo;
   CreateAddressInput: CreateAddressInput;
+  CreateCheckoutSessionInput: CreateCheckoutSessionInput;
   CreateMenuInput: CreateMenuInput;
   CreateUserInput: CreateUserInput;
   Date: Scalars['Date'];
@@ -439,6 +451,7 @@ export type MenuResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createCheckoutSession?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationCreateCheckoutSessionArgs, 'input'>>;
   onboard?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationOnboardArgs, 'input'>>;
   updateRestaurant?: Resolver<ResolversTypes['Restaurant'], ParentType, ContextType, RequireFields<MutationUpdateRestaurantArgs, 'id' | 'input'>>;
   updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'input'>>;
