@@ -139,6 +139,7 @@ export type OnboardInput = {
 
 export type Query = {
   __typename?: 'Query';
+  getStripeCustomer: Scalars['String'];
   menus: Array<Menu>;
   menusByRestaurantId: Menu;
   redwood?: Maybe<Redwood>;
@@ -147,6 +148,11 @@ export type Query = {
   restaurants: Array<Restaurant>;
   user: User;
   users: Array<User>;
+};
+
+
+export type QueryGetStripeCustomerArgs = {
+  sessionURL: Scalars['String'];
 };
 
 
@@ -458,6 +464,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getStripeCustomer?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<QueryGetStripeCustomerArgs, 'sessionURL'>>;
   menus?: Resolver<Array<ResolversTypes['Menu']>, ParentType, ContextType>;
   menusByRestaurantId?: Resolver<ResolversTypes['Menu'], ParentType, ContextType, RequireFields<QueryMenusByRestaurantIdArgs, 'restaurantId'>>;
   redwood?: Resolver<Maybe<ResolversTypes['Redwood']>, ParentType, ContextType>;

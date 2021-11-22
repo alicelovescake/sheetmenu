@@ -19,3 +19,9 @@ export const createCheckoutSession = async ({ input }) => {
 
   return session.url
 }
+
+export const getStripeCustomer = async ({ sessionURL }) => {
+  const session = await stripe.checkout.sessions.retrieve(sessionURL)
+  const customer = await stripe.customers.retrieve(session.customer)
+  return customer.name
+}

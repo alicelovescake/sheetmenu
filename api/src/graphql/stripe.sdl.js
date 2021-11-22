@@ -7,4 +7,8 @@ export const schema = gql`
     createCheckoutSession(input: CreateCheckoutSessionInput!): String
       @requireAuth
   }
+
+  type Query {
+    getStripeCustomer(sessionURL: String!): String! @requireAuth
+  }
 `
