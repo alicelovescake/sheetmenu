@@ -1,4 +1,5 @@
 import { stripe } from 'src/lib/stripe'
+import { requireAuth } from 'src/lib/auth'
 
 export const createCheckoutSession = async ({ input }) => {
   const { priceId } = input
@@ -24,4 +25,14 @@ export const getStripeCustomer = async ({ sessionURL }) => {
   const session = await stripe.checkout.sessions.retrieve(sessionURL)
   const customer = await stripe.customers.retrieve(session.customer)
   return customer.name
+}
+
+export const createPortalSession = async () => {
+  requireAuth()
+  const session = await stripe.billingPortal.sessions.create({
+    customer: context.currentUser.stripeId,
+    return_url: 'http://localhost:8910/settings',
+  })
+
+  return session.url
 }

@@ -28,20 +28,52 @@ const GET_RESTAURANT = gql`
     }
   }
 `
+const UPDATE_USER = gql`
+  mutation UpdateUserMutation($input: UpdateUserInput!) {
+    updateUser(input: $input) {
+      name
+    }
+  }
+`
+const GET_USER = gql`
+  query GetUser($email: String!) {
+    user(email: $email) {
+      id
+      name
+      subscribed
+    }
+  }
+`
 
 const SettingsPage = () => {
   const { currentUser } = useAuth()
-  const { data } = useQuery(GET_RESTAURANT, {
+  const { data: resturantData } = useQuery(GET_RESTAURANT, {
     variables: { ownerId: currentUser.id },
   })
 
-  const [update, { loading }] = useMutation(UPDATE_RESTAURANT, {
+  const [updateRestaurant, { loading: loadingRestaurant }] = useMutation(
+    UPDATE_RESTAURANT,
+    {
+      onCompleted: () => {
+        toast.success('Your restaurant info is updated!')
+      },
+      refetchQueries: [
+        { query: GET_RESTAURANT, variables: { ownerId: currentUser.id } },
+      ],
+    }
+  )
+
+  const [updateUser, { loading: loadingUser }] = useMutation(UPDATE_USER, {
     onCompleted: () => {
-      toast.success('Your restaurant info is updated!')
+      toast.success('Your account info is updated!')
     },
     refetchQueries: [
-      { query: GET_RESTAURANT, variables: { ownerId: currentUser.id } },
+      { query: GET_USER, variables: { email: currentUser.email } },
     ],
+  })
+
+  const { data: userData } = useQuery(GET_USER, {
+    variables: { email: currentUser.email },
   })
 
   return (
@@ -50,22 +82,38 @@ const SettingsPage = () => {
         Access your Google Sheet with this link:{' '}
         <a
           className="hover:text-green-800 text-xl underline break-all"
-          href={`https://docs.google.com/spreadsheets/d/${data?.restaurantByOwnerId.sheetId}`}
+          href={`https://docs.google.com/spreadsheets/d/${resturantData?.restaurantByOwnerId.sheetId}`}
         >
-          {`https://docs.google.com/spreadsheets/d/${data?.restaurantByOwnerId.sheetId}`}
+          {`https://docs.google.com/spreadsheets/d/${resturantData?.restaurantByOwnerId.sheetId}`}
         </a>
       </div>
       <div className="pt-20">
-        <AccountSettings data={data} update={update} loading={loading} />
+        <AccountSettings
+          data={userData}
+          update={updateUser}
+          loading={loadingUser}
+        />
       </div>
       <div className="pt-20">
-        <RestaurantSettings data={data} update={update} loading={loading} />
+        <RestaurantSettings
+          data={resturantData}
+          update={updateRestaurant}
+          loading={loadingRestaurant}
+        />
       </div>
       <div className="py-20">
-        <ThemeSettings data={data} update={update} loading={loading} />
+        <ThemeSettings
+          data={resturantData}
+          update={updateRestaurant}
+          loading={loadingRestaurant}
+        />
       </div>
       <div className="py-20">
-        <SubscriptionSettings />
+        <SubscriptionSettings
+          data={userData}
+          update={updateUser}
+          loading={loadingUser}
+        />
       </div>
     </main>
   )

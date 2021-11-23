@@ -1,44 +1,12 @@
 import { useForm } from 'react-hook-form'
 import { Form, Label, TextField, FieldError, Submit } from '@redwoodjs/forms'
-import { useMutation, useQuery } from '@redwoodjs/web'
-import { useAuth } from '@redwoodjs/auth'
-import { toast, Toaster } from '@redwoodjs/web/toast'
+import { Toaster } from '@redwoodjs/web/toast'
 
-const UPDATE_ACCOUNT = gql`
-  mutation UpdateAccountMutation($input: UpdateUserInput!) {
-    updateUser(input: $input) {
-      name
-    }
-  }
-`
-const GET_USER = gql`
-  query GetUser($email: String!) {
-    user(email: $email) {
-      id
-      name
-    }
-  }
-`
-
-const AccountSettings = () => {
-  const { currentUser } = useAuth()
-  const [create, { loading }] = useMutation(UPDATE_ACCOUNT, {
-    onCompleted: () => {
-      toast.success('Your account info is updated!')
-    },
-    refetchQueries: [
-      { query: GET_USER, variables: { email: currentUser.email } },
-    ],
-  })
-
-  const { data } = useQuery(GET_USER, {
-    variables: { email: currentUser.email },
-  })
-
+const AccountSettings = ({ update, loading, data }) => {
   const formMethods = useForm()
 
   const onSubmit = (data) => {
-    create({ variables: { input: { name: data.userName } } })
+    update({ variables: { input: { name: data.userName } } })
   }
 
   return (

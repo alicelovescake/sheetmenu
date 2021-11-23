@@ -6,6 +6,7 @@ export const schema = gql`
   type Mutation {
     createCheckoutSession(input: CreateCheckoutSessionInput!): String
       @requireAuth
+    createPortalSession: String @requireAuth
   }
 
   type Query {
