@@ -58,6 +58,16 @@ export const handler = async (event) => {
       })
       console.log('checkout.session.completed')
       break
+    case 'customer.subscription.deleted':
+      await db.user.update({
+        data: {
+          subscribed: false,
+        },
+        where: {
+          email: customer.email,
+        },
+      })
+      break
     default:
       console.error('invalid stripe id')
   }

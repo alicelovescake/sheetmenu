@@ -27,6 +27,15 @@ export const getStripeCustomer = async ({ sessionURL }) => {
   return customer.name
 }
 
+export const getStripeSubscription = async ({ subscriptionId }) => {
+  const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+  return {
+    id: subscriptionId.id,
+    priceId: subscription.items.data.price.id,
+    productId: subscription.items.data.price.product,
+    active: subscription.items.data.price.active,
+  }
+}
 export const createPortalSession = async () => {
   requireAuth()
   const session = await stripe.billingPortal.sessions.create({

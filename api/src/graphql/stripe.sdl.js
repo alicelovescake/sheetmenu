@@ -3,6 +3,13 @@ export const schema = gql`
     priceId: String!
   }
 
+  type Subscription {
+    id: String!
+    priceId: String!
+    productId: String!
+    active: Boolean
+  }
+
   type Mutation {
     createCheckoutSession(input: CreateCheckoutSessionInput!): String
       @requireAuth
@@ -11,5 +18,6 @@ export const schema = gql`
 
   type Query {
     getStripeCustomer(sessionURL: String!): String! @requireAuth
+    getStripeSubscription(subscriptionId: String!): Subscription! @requireAuth
   }
 `
