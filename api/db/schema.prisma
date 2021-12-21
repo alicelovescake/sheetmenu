@@ -15,6 +15,7 @@ model User {
   name                 String?
   stripeId             String?
   stripeSubscriptionid String?
+  subscribed           Boolean      @default(false)
   restaurant           Restaurant[]
   onboarded            Boolean      @default(false)
   createdAt            DateTime     @default(now())

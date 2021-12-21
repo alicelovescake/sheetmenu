@@ -1,3 +1,4 @@
+import skipAuth from 'src/directives/skipAuth/skipAuth'
 export const schema = gql`
   type Item {
     id: String!

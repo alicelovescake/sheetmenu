@@ -8,6 +8,7 @@ export const schema = gql`
     restaurant: [Restaurant]!
     firebaseId: String!
     onboarded: Boolean!
+    subscribed: Boolean!
     createdAt: DateTime!
     updatedAt: DateTime!
   }
@@ -32,6 +33,7 @@ export const schema = gql`
     stripeId: String
     stripeSubscriptionid: String
     onboarded: Boolean
+    subscribed: Boolean
   }
 
   type Mutation {

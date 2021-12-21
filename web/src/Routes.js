@@ -6,6 +6,7 @@ const Routes = () => {
   return (
     <Router>
       <Set wrap={AppLayout}>
+        <Route path="/checkout/success" page={CheckoutPage} name="checkout" />
         <Route path="/" page={HomePage} name="home" />
 
         <Private unauthenticated="home">

@@ -53,6 +53,10 @@ export type CreateAddressInput = {
   state?: Maybe<Scalars['String']>;
 };
 
+export type CreateCheckoutSessionInput = {
+  priceId: Scalars['String'];
+};
+
 export type CreateMenuInput = {
   restaurantId: Scalars['String'];
 };
@@ -99,9 +103,16 @@ export type Menu = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createCheckoutSession?: Maybe<Scalars['String']>;
+  createPortalSession?: Maybe<Scalars['String']>;
   onboard?: Maybe<Scalars['String']>;
   updateRestaurant: Restaurant;
   updateUser: User;
+};
+
+
+export type MutationCreateCheckoutSessionArgs = {
+  input: CreateCheckoutSessionInput;
 };
 
 
@@ -129,6 +140,7 @@ export type OnboardInput = {
 
 export type Query = {
   __typename?: 'Query';
+  getStripeCustomer: Scalars['String'];
   menus: Array<Menu>;
   menusByRestaurantId: Menu;
   redwood?: Maybe<Redwood>;
@@ -137,6 +149,11 @@ export type Query = {
   restaurants: Array<Restaurant>;
   user: User;
   users: Array<User>;
+};
+
+
+export type QueryGetStripeCustomerArgs = {
+  sessionURL: Scalars['String'];
 };
 
 
@@ -212,6 +229,7 @@ export type UpdateUserInput = {
   onboarded?: Maybe<Scalars['Boolean']>;
   stripeId?: Maybe<Scalars['String']>;
   stripeSubscriptionid?: Maybe<Scalars['String']>;
+  subscribed?: Maybe<Scalars['Boolean']>;
 };
 
 export type User = {
@@ -225,6 +243,7 @@ export type User = {
   restaurant: Array<Maybe<Restaurant>>;
   stripeId?: Maybe<Scalars['String']>;
   stripeSubscriptionid?: Maybe<Scalars['String']>;
+  subscribed: Scalars['Boolean'];
   updatedAt: Scalars['DateTime'];
 };
 
@@ -301,6 +320,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   BusInfo: ResolverTypeWrapper<BusInfo>;
   CreateAddressInput: CreateAddressInput;
+  CreateCheckoutSessionInput: CreateCheckoutSessionInput;
   CreateMenuInput: CreateMenuInput;
   CreateUserInput: CreateUserInput;
   Date: ResolverTypeWrapper<Scalars['Date']>;
@@ -331,6 +351,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   BusInfo: BusInfo;
   CreateAddressInput: CreateAddressInput;
+  CreateCheckoutSessionInput: CreateCheckoutSessionInput;
   CreateMenuInput: CreateMenuInput;
   CreateUserInput: CreateUserInput;
   Date: Scalars['Date'];
@@ -439,12 +460,15 @@ export type MenuResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createCheckoutSession?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationCreateCheckoutSessionArgs, 'input'>>;
+  createPortalSession?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   onboard?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationOnboardArgs, 'input'>>;
   updateRestaurant?: Resolver<ResolversTypes['Restaurant'], ParentType, ContextType, RequireFields<MutationUpdateRestaurantArgs, 'id' | 'input'>>;
   updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getStripeCustomer?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<QueryGetStripeCustomerArgs, 'sessionURL'>>;
   menus?: Resolver<Array<ResolversTypes['Menu']>, ParentType, ContextType>;
   menusByRestaurantId?: Resolver<ResolversTypes['Menu'], ParentType, ContextType, RequireFields<QueryMenusByRestaurantIdArgs, 'restaurantId'>>;
   redwood?: Resolver<Maybe<ResolversTypes['Redwood']>, ParentType, ContextType>;
@@ -493,6 +517,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   restaurant?: Resolver<Array<Maybe<ResolversTypes['Restaurant']>>, ParentType, ContextType>;
   stripeId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   stripeSubscriptionid?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subscribed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
